@@ -1,0 +1,121 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+<nav th:replace="snippets.html :: name_app_navbar"></nav>
+
+<div class="container">
+
+<h3>Daily Report</h3>
+
+ <!-- Top row with form-->
+<!-- <div class="row">-->
+<!--	 <div class="col-12">-->
+<!--			<form class="form-inline" id="dailyReport-form">-->
+<!--			  <div class="form-group">-->
+<!--			    <label for="inputStartDate" class="col-sm-2 col-form-label">Start Date</label>-->
+<!--			    <div class="col-sm-10">-->
+<!--			      <input type="date" class="form-control" name="startDate" id="inputStartDate">-->
+<!--			    </div>-->
+<!--			  </div>-->
+<!--			  <div class="form-group">-->
+<!--			    <label for="inputEndDate" class="col-sm-2 col-form-label">End Date</label>-->
+<!--			    <div class="col-sm-10">-->
+<!--			      <input type="date" class="form-control" name="endDate" id="inputEndDate">-->
+<!--			    </div>-->
+<!--			  </div>-->
+<!--			  <button type="button" class="btn btn-primary" id="get-filteredDailyReport">Submit</button>-->
+<!--			  &nbsp;-->
+<!--			  <button type="button" class="btn btn-primary" id="refresh-data">All</button>-->
+<!--			</form>-->
+<!--	 </div>-->
+<!--</div>-->
+
+	<div style = "display: flex; justify-content: center">
+		<button type="button" class="btn btn-primary mr-2" id="add"><i class="fa-solid fa-plus"></i></button>
+		<button type="button" class="btn btn-primary mr-2" id="refresh-data">All</i></button>
+	</div>
+
+
+<!-- Blank Row -->
+<div class="row">
+	&nbsp;
+</div>
+<div class="row">
+
+ <!-- Table -->
+ <div class="col-12">
+	<table class="table table-dark table-hover" id="dailyReport-table">
+	  <thead>
+	    <tr>
+	      <th scope="col">S.No.</th>
+	      <th scope="col">Date</th>
+	      <th scope="col">Total Order</th>
+	      <th scope="col">Total Items</th>
+	      <th scope="col">Total Revenue</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+
+	  </tbody>
+	</table>
+
+</div>
+</div>
+
+<!--	daily report modal-->
+
+	<div class="modal" tabindex="-1" role="dialog" id="daily-report-modal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Filter Report</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="dailyReport-form">
+						<div class="form-row">
+
+							<div class="form-group col-12 mb-3">
+								<label for="inputStartDate" class="font-weight-bold">Start Date</label>
+
+								<input type="date" class="form-control" name="startDate" id="inputStartDate">
+
+							</div>
+
+
+							<div class="form-group col-12 mb-3">
+								<label for="inputEndDate" class="font-weight-bold">End Date</label>
+
+								<input type="date" class="form-control" name="endDate" id="inputEndDate">
+
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="get-filteredDailyReport">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="snippets.html :: name_toast"></div>
+
+</div> <!-- Container end-->
+
+<footer th:replace="snippets.html :: name_footer"></footer>
+
+<script th:src="@{/static/dailyReport.js}"/></script>
+
+</body>	
+
+</html>

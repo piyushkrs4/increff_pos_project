@@ -1,0 +1,296 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+<nav th:replace="snippets.html :: name_app_navbar"></nav>
+
+<div class="container">
+
+    <h3>Order</h3>
+
+    <!-- Top row with form-->
+    <div class="row">
+        <div class="col-12">
+            <form class="form-inline" id="order-form">
+
+                <button type="button" class="btn btn-primary btn-md mr-3" id="open-cart"><i
+                        class="fa-solid fa-cart-shopping"></i></button>
+                &nbsp;
+                <button type="button" class="btn btn-primary" id="refresh-data"><i
+                        class="fa-solid fa-arrows-rotate"></i></button>
+                &nbsp;
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Blank Row -->
+    <div class="row">
+        &nbsp;
+    </div>
+    <div class="row">
+
+        <!-- Table -->
+        <div class="col-12">
+            <table class="table table-dark table-hover" id="order-table">
+                <thead>
+                <tr>
+                    <th scope="col">S.No.</th>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Date Time</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+    <!--create-order modal-->
+    <div class="modal" tabindex="-1" role="dialog" id="create-order-modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="cart-item-form">
+                        <div class="form-row">
+
+                            <div class="form-group col-12 mb-3">
+                                <label for="inputBarcode" class="font-weight-bold">Barcode</label>
+
+                                <input type="text" class="form-control" name="barcode" id="inputBarcode"
+                                       placeholder="enter barcode">
+
+                            </div>
+
+
+                            <div class="form-group col-12 mb-3">
+                                <label for="inputQuantity" class="font-weight-bold">Quantity</label>
+
+                                <input type="number" class="form-control" name="quantity" id="inputQuantity"
+                                       placeholder="enter quantity">
+
+                            </div>
+
+                            <div class="form-group col-12 mb-3">
+                                <label for="inputSellingPrice" class="font-weight-bold">Selling Price</label>
+
+                                <input type="number" class="form-control" name="sellingPrice" id="inputSellingPrice"
+                                       placeholder="enter selling price">
+
+                            </div>
+
+                        </div>
+                        <button type="button" class="btn btn-success" id="add-cartItem">Add</button>
+                    </form>
+
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                    <div class="row">
+
+                        <!-- Table -->
+                        <div class="col-12">
+                            <table class="table table-dark table-hover" id="cartItem-table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">S.No.</th>
+                                    <th scope="col">Barcode</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Selling Price</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                            <!--	 <div id = "change-button">-->
+                            <!--	 </div>-->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" id="place-order">Place Order</button>
+                    </div>
+
+                    &nbsp;
+                </div>
+                <!--				test end-->
+            </div>
+        </div>
+        <!--		<div th:replace="snippets.html :: name_toast"></div>-->
+    </div>
+
+    <!--view-order modal-->
+    <div class="modal" tabindex="-1" role="dialog" id="view-order-modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderItem-title">Order Item Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="order-item-form">
+                        <div class="form-row">
+
+                            <div class="form-group col-12 mb-3">
+                                <label for="inputBarcode" class="font-weight-bold">Barcode</label>
+
+                                <input type="text" class="form-control" name="barcode" placeholder="enter barcode">
+
+                            </div>
+
+
+                            <div class="form-group col-12 mb-3">
+                                <label for="inputQuantity" class="font-weight-bold">Quantity</label>
+
+                                <input type="number" class="form-control" name="quantity" placeholder="enter quantity">
+
+                            </div>
+
+                            <div class="form-group col-12 mb-3">
+                                <label for="inputSellingPrice" class="font-weight-bold">Selling Price</label>
+
+                                <input type="number" class="form-control" name="sellingPrice"
+                                       placeholder="enter selling price">
+
+                            </div>
+
+                        </div>
+                        <button type="button" class="btn btn-success" id="add-orderItem">Add</button>
+                    </form>
+
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                    <div class="row">
+
+                        <!-- Table -->
+                        <div class="col-12">
+                            <table class="table table-dark table-hover" id="orderItem-table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">S.No.</th>
+                                    <th scope="col">Barcode</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Selling Price</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                            <!--	 <div id = "change-button">-->
+                            <!--                        <button type="button" class="btn btn-success" id="update-order">Update Order</button>-->
+                            <!--	 </div>-->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" id="update-order">Update Order</button>
+                    </div>
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    view placed order-->
+
+    <div class="modal" tabindex="-1" role="dialog" id="view-placedOrder-modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="placedOrder-title">Order View</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="col-12">
+                        <div>
+                            <div style="display:inline-block;float:left">
+                                <a style="font-weight:bold">Order Code: </a>
+                                <a id="inputOrderCode"></a>
+                            </div>
+                            <div style="display:inline-block;float:right">
+                                <a style="font-weight:bold; text-align:right">Invoice Date: </a>
+                                <a id="inputInvoiceDate"></a>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <div style="display:inline-block;float:left">
+                                <a style="font-weight:bold">Invoice Number: </a>
+                                <a id="inputInvoiceNumber"></a>
+                            </div>
+                            <div style="display:inline-block;float:right">
+                                <a style="font-weight:bold; text-align:right">Invoice Time: </a>
+                                <a id="inputInvoiceTime"></a>
+                            </div>
+                        </div>
+
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                    <div class="row">
+                        <!-- Table -->
+
+
+                            <table class="table table-dark table-hover mt-3" id="placedOrder-table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">S.No.</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Barcode</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Unit Price</th>
+                                    <th scope="col">Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--	edit order modal-->
+
+    <div th:replace="snippets.html :: name_toast"></div>
+
+</div> <!-- Container end-->
+
+<footer th:replace="snippets.html :: name_footer"></footer>
+
+<script th:src="@{/static/order.js}"/>
+</script>
+
+</body>
+
+</html>
