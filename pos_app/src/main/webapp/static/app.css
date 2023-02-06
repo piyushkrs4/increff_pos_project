@@ -21,3 +21,12 @@ body {
 .fas{
     font-size: 4rem;
 }
+
+#toast
+{
+  position: fixed !important;
+  top: 20px;
+  right:20px;
+  z-index: 999999;
+  overflow: visible !important;
+}

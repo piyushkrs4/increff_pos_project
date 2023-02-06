@@ -5,139 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d451f37-2511-4b5f-bdbf-096fc3963bd6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_opencsv_opencsv_5_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_9_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_2_0_1_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_collections4_4_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_10.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_text_1_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_0_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/OperatorApiController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/SignupController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dao/DailyReportDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/SignupDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/UserDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/InvoiceDateTimeData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/SignupForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/AbstractPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/DailyReportPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/util/Converter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/util/Flow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/util/Normalizer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/util/NormalizerUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/util/ValidatorUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/util/Validatorwa.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/html/signup.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/signup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee.properties" beforeDir="false" afterPath="$PROJECT_DIR$/pos.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/increff_pos_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/increff_pos_project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/AdminApiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/AppRestControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/AppRestControllerAdvice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/AppUiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/AppUiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/BrandApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/SupervisorApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/DailyReportApiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/InventoryApiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/InventoryReportApiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/OrderApiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/OrderItemApiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/PdfGeneratorApiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/ProductApiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/SalesReportApiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/SampleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/SampleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/SiteUiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/controller/SiteUiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dao/BrandDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dao/BrandDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dao/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dao/OrderItemDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dao/OrderItemDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/BrandDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/BrandDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/DailyReportDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/DailyReportDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/InventoryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/InventoryDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/InventoryReportDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/InventoryReportDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/OrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/OrderItemDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/PdfGeneratorDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/PdfGeneratorDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/ProductDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/SalesReportDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/dto/SalesReportDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/BrandForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/BrandForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/DailyReportData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/DailyReportData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/DailyReportForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/DailyReportForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/EditProductForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/EditProductForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/InventoryForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/InventoryForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/InvoiceData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/InvoiceData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/InvoiceLineItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/InvoiceLineItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/LoginForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/LoginForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/OrderData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/OrderData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/OrderForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/OrderForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/OrderItemData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/OrderItemData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/OrderItemForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/OrderItemForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/ProductForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/ProductForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/SalesReportData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/SalesReportData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/SalesReportForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/SalesReportForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/UserForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/model/UserForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/BrandPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/BrandPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/EmployeePojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/EmployeePojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/InventoryPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/InventoryPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/OrderItemPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/OrderItemPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/OrderPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/OrderPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/ProductPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/ProductPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/UserPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/pojo/UserPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/BrandService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/BrandService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/DailyReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/DailyReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/InventoryReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/InventoryReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/InventoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/InventoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/OrderItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/OrderItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/PdfGeneratorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/PdfGeneratorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/SalesReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/SalesReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/spring/ControllerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/spring/ControllerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/spring/DbConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/spring/DbConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/spring/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/spring/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/spring/SpringConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/spring/SpringConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/pos/util/JavaToXml.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/pos/util/JavaToXml.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_1.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_2.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_20.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_3.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_34.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_36.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_39.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_4.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_41.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_43.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_5.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_6.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/PdfFiles/invoice_7.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/hello.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com.increff.pdf/hello.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/brand.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/brand.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/dailyReport.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/dailyReport.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/inventory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/inventoryReport.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/inventoryReport.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/order.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/orderItem.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/product.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/salesReport.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/salesReport.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/snippets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/snippets.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/brand.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/brand.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/dailyReport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/dailyReport.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/inventoryReport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/inventoryReport.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/orderItem.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/salesReport.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/salesReport.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pdf_app/src/main/java/org/example/Main.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +21,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -177,7 +46,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "TODO_SCOPE": "All Places",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "D:/WorkSpace/IncreffProjects/New folder/increff_pos_project",
+    "last_opened_file_path": "D:/WorkSpace/IncreffProjects/POS Project Final/increff_pos_project/pos_app",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",

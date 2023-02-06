@@ -23,6 +23,7 @@ function addInventory(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+	        successMessage("Inventory added successfully!")
 	   		getInventoryList();
 	   		$('#add-inventory-modal').modal('toggle');
 	   },
@@ -50,7 +51,8 @@ function updateInventory(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		getInventoryList();   
+	        successMessage("Inventory updated successfully!")
+	   		getInventoryList();
 	   },
 	   error: handleAjaxError
 	});
@@ -93,6 +95,7 @@ function uploadRows(){
 	updateUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
+	    successMessage("Brands and categories uploaded successfully!")
 		return;
 	}
 	
@@ -137,7 +140,7 @@ function displayInventoryList(data){
 
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = ' <button class = "btn btn-warning" onclick="displayEditInventory(' + ++sno + ')">edit</button>'
+		var buttonHtml = ' <button class = "btn btn-warning" onclick="displayEditInventory(' + ++sno + ')"><i class="fa-solid fa-pen"></i></button>'
 		var rowId = 'inventory-row-' + sno
         var row = '<tr id = "' + rowId + '">'
 		+ '<td>' + sno + '</td>'

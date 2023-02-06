@@ -9,5 +9,8 @@
         <module name="pdf_app" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pos_app" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

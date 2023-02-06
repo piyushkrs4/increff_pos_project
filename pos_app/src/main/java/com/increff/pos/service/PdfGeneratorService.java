@@ -12,11 +12,15 @@ import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -25,18 +29,39 @@ public class PdfGeneratorService {
     private static final String DATE_FORMAT = "dd-MM-yyyy";
     private static final String TIME_FORMAT = "HH:mm:ss";
     @Autowired
-    private PdfGenerator pdfGenerator;
-    @Autowired
     private OrderService orderService;
     @Autowired
     private ProductService productService;
     public void generatePdf(Integer orderId, String currentDateTimeData) throws ApiException {
-        String currentDate = currentDateTimeData.substring(0, 8);
-        String currentTime = currentDateTimeData.substring(11);
+//        String currentDate = currentDateTimeData.substring(0, 8);
+//        String currentTime = currentDateTimeData.substring(11);
+        ZonedDateTime currentZonedDateTime = ZonedDateTime.now();
         OrderPojo orderPojo = orderService.getOrderByOrderId(orderId);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        String currentDate = currentZonedDateTime.format(dateTimeFormatter);
+        dateTimeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT);
+        String currentTime = currentZonedDateTime.format(dateTimeFormatter);
         InvoiceData invoiceData = getInvoiceDetails(orderPojo, currentDate, currentTime);
+
+        RestTemplate restTemplate = new RestTemplate();
+        String base64 = restTemplate.postForEntity("http://localhost:9001/pdf/api/generate-pdf", invoiceData, String.class).getBody();
+
+        File pdfDir = new File("src/main/resources/com.increff.pdf./PdfFiles");
+        pdfDir.mkdirs();
+        String pdfFileName = "invoice_" + invoiceData.getInvoiceNumber() + ".pdf";
+        File file = new File(pdfDir, pdfFileName);
+
+
+        try (FileOutputStream fos = new FileOutputStream(file); ) {
+            String b64 = base64;
+            byte[] decoder = Base64.getDecoder().decode(b64);
+
+            fos.write(decoder);
+            System.out.println("PDF File Saved");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         orderService.placeOrder(orderId);
-        pdfGenerator.xmlToPdfConverter(invoiceData);
     }
 
     public InvoiceData showPlacedOrder(Integer orderId) throws ApiException {

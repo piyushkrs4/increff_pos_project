@@ -165,4 +165,5 @@ function init(){
 
 $(document).ready(init);
 $(document).ready(getBrandCategoryList);
+$(document).ready(getSalesReportList);
 

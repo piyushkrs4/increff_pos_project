@@ -14,4 +14,7 @@ public class InventoryReportDto {
     public List<InventoryReportData> getAll() throws ApiException {
         return inventoryReportService.getAll();
     }
+
+//    public downloadCSV()
+
 }

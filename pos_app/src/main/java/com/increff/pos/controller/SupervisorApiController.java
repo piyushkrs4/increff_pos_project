@@ -125,13 +125,12 @@ public class SupervisorApiController {
 
     @ApiOperation(value = "Downloads inventory report")
     @RequestMapping(value = "/inventory-report/download", method = RequestMethod.GET, produces = "text/csv")
-    public String downloadCSV(HttpServletResponse response) throws IOException, ApiException {
+    public String downloadInventoryReportCSV(HttpServletResponse response) throws IOException, ApiException {
         List<InventoryReportData> inventoryReportDataList = inventoryReportDto.getAll(); //get the objects you want to convert to CSV
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         //use OpenCSV library to write the objects to a CSV string
-        CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(baos, Charset.forName("UTF-8")),
+        CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(byteArrayOutputStream, Charset.forName("UTF-8")),
                 CSVWriter.DEFAULT_SEPARATOR,
                 CSVWriter.NO_QUOTE_CHARACTER,
                 CSVWriter.DEFAULT_ESCAPE_CHARACTER,
@@ -147,10 +146,10 @@ public class SupervisorApiController {
 
         csvWriter.close();
 
-        response.setHeader("Content-Disposition", "attachment; filename=your-file-name.csv");
+        response.setHeader("Content-Disposition", "attachment; filename=inventory-report.csv");
         response.setContentType("text/csv");
 
-        return baos.toString("UTF-8");
+        return byteArrayOutputStream.toString("UTF-8");
     }
 
 

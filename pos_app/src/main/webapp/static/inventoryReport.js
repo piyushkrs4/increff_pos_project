@@ -22,7 +22,7 @@ async function downloadCSV() {
 
     const link = document.createElement('a');
     link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(data));
-    link.setAttribute('download', 'your-file-name.csv');
+    link.setAttribute('download', 'inventory-report.csv');
     link.style.display = 'none';
 
     document.body.appendChild(link);

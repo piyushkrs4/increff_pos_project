@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "user_pojo")
 public class UserPojo extends AbstractPojo {
 
 	@Id

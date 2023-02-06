@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Getter
 @Setter
-@Table(name = "brand_pojo")
 public class BrandPojo extends AbstractPojo{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

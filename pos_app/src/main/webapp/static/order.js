@@ -33,12 +33,12 @@ function displayOrderList(data){
         let localDate = date.toLocaleString('en-IN');
 
 		if(!orderStatus){
-		    buttonHtml = '<button class = "btn btn-success mr-3" onclick="viewOrder(' + e.id + ')"><i class="fa-solid fa-pen-to-square"></i></button>'
-		    buttonHtml += '<button class = "btn btn-primary" onclick="createInvoice(' + e.id + ')"><i class="fa-sharp fa-solid fa-check"></i></button>'
+		    buttonHtml = '<button class = "btn btn-warning mr-2" onclick="viewOrder(' + e.id + ')"><i class="fa-solid fa-pen"></i></button>'
+		    buttonHtml += '<button class = "btn btn-success" onclick="createInvoice(' + e.id + ')"><i class="fa-sharp fa-solid fa-check"></i></button>'
 		}
 		else{
-		    buttonHtml = '<button class = "btn btn-dark" onclick="getInvoice(' + e.id + ')"><i class="fa-solid fa-download"></i></i></button>'
-            buttonHtml += '<button class = "btn btn-primary" onclick="viewPlacedOrder(' + e.id + ')">View Placed</button>'
+		    buttonHtml = '<button class = "btn btn-light mr-2" onclick="getInvoice(' + e.id + ')"><i class="fa-solid fa-download"></i></i></button>'
+            buttonHtml += '<button class = "btn btn-light" onclick="viewPlacedOrder(' + e.id + ')"><i class="fa-solid fa-eye"></i></button>'
 		}
 		var row = '<tr>'
 		+ '<td>' + ++sno + '</td>'
@@ -54,6 +54,7 @@ function displayOrderList(data){
 function pagenation(){
     $('#order-table').DataTable();
     $('#cartItem-table').DataTable();
+    $('#orderItem-table').DataTable();
     $('.dataTables_length').addClass("bs-select");
 }
 
@@ -62,9 +63,9 @@ function createInvoice(id){
 	var url = getOrderUrl() + "/" + id + "/generate-invoice";
     var date = new Date();
     var localDate = date.toLocaleString();
-    var json = {
-        "currentDateTime": dateStr,
-    }
+//    var json = {
+//        "currentDateTime": dateStr,
+//    }
 	$.ajax({
 	   url: url,
 	   type: 'POST',
@@ -73,7 +74,7 @@ function createInvoice(id){
           'Content-Type': 'application/json'
        },
 	   success: function(data) {
-	        alert("Invoice created")
+	        successMessage("Invoice created successfully!")
             getOrderList();
 	   },
 	   error: handleAjaxError
@@ -88,26 +89,20 @@ function getInvoice(id){
        url: url,
        type: 'GET',
        success: function(data) {
-            downloadInvoice(data);
+            downloadInvoice(data, id);
        },
        error: handleAjaxError
     });
 }
 
-function downloadInvoice(data){
-    var pdfBase64 = data;
 
-    // create a Blob from the base64 string
-    var pdfBlob = new Blob([atob(pdfBase64)], { type: 'application/pdf' });
-
-    // create an object URL from the Blob
-    var pdfUrl = URL.createObjectURL(pdfBlob);
-
-    // download the PDF
-    var link = document.createElement("a");
-    link.download = "document.pdf";
-    link.href = pdfUrl;
+function downloadInvoice(base64EncodedPdf, id) {
+    const link = document.createElement("a");
+    link.href = "data:application/pdf;base64," + base64EncodedPdf;
+    link.download = "invoice_" + id + ".pdf";
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
 }
 
 //cart
@@ -120,15 +115,15 @@ function addCartItem(event){
     var e = JSON.parse(json)
     e.barcode = e.barcode.trim()
     if(e.barcode.length == 0){
-        alert("Please enter barcode")
+        errorMessage("Please enter barcode!")
         return
     }
     if(e.quantity <= 0){
-        alert("Quantity cannot be less than or equal to zero")
+        errorMessage("Quantity cannot be less than one!")
         return
     }
     if(e.sellingPrice < 0){
-        alert("Selling price cannot be less than zero")
+        errorMessage("Selling price cannot be less than zero")
         return
     }
     var quantity = parseInt(e.quantity)
@@ -145,15 +140,15 @@ function addOrderItem(event){
     var e = JSON.parse(json)
     e.barcode = e.barcode.trim()
     if(e.barcode.length == 0){
-        alert("Please enter barcode")
+        errorMessage("Please enter barcode!")
         return
     }
     if(e.quantity <= 0){
-        alert("Quantity cannot be less than or equal to zero")
+        errorMessage("Quantity cannot be less than one!")
         return
     }
     if(e.sellingPrice < 0){
-        alert("Selling price cannot be less than zero")
+        errorMessage("Selling price cannot be less than zero")
         return
     }
     var quantity = parseInt(e.quantity)
@@ -163,6 +158,8 @@ function addOrderItem(event){
 
     displayOrderItems()
 }
+
+
 
 function viewOrder(id){
     displayOrder();
@@ -211,38 +208,64 @@ function displayCartItems(){
 	var $tbody = $('#cartItem-table').find('tbody');
     $tbody.empty();
 	var sno = 1;
+	var total = 0;
 	for (let [key, value] of cartItemsMap){
 	    var barcode = key.toString()
 	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteCartItem(\'' + barcode + '\')">delete</button>'
+	    var totalPrice = value[0] * value[1];
         var row = '<tr>'
         + '<td>' + sno++ + '</td>'
         + '<td>' + key + '</td>'
         + '<td>' + value[0] + '</td>'
         + '<td>'  + value[1] + '</td>'
+        + '<td>' + totalPrice + '</td>'
         + '<td>' + buttonHtml + '</td>'
         + '</tr>';
         $tbody.append(row);
+        total += totalPrice;
 	}
+	$('#cartItemTotal').text(total);
+
 	pagenation();
 }
 
 
 function displayOrderItems(){
+    $('#orderItem-table').DataTable().destroy();
+    console.log("hi")
 	var $tbody = $('#orderItem-table').find('tbody');
     $tbody.empty();
 	var sno = 1;
+//	for (let [key, value] of cartItemsMap){
+//	    var barcode = key.toString()
+//	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteOrderItem(\'' + barcode + '\')">delete</button>'
+//        var row = '<tr>'
+//        + '<td>' + sno++ + '</td>'
+//        + '<td>' + key + '</td>'
+//        + '<td>' + value[0] + '</td>'
+//        + '<td>'  + value[1] + '</td>'
+//        + '<td>' + buttonHtml + '</td>'
+//        + '</tr>';
+//        $tbody.append(row);
+//	}
+    var total = 0;
 	for (let [key, value] of cartItemsMap){
 	    var barcode = key.toString()
-	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteOrderItem(\'' + barcode + '\')">delete</button>'
+	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteCartItem(\'' + barcode + '\')">delete</button>'
+	    var totalPrice = value[0] * value[1];
         var row = '<tr>'
         + '<td>' + sno++ + '</td>'
         + '<td>' + key + '</td>'
         + '<td>' + value[0] + '</td>'
         + '<td>'  + value[1] + '</td>'
+        + '<td>' + totalPrice + '</td>'
         + '<td>' + buttonHtml + '</td>'
         + '</tr>';
         $tbody.append(row);
+        total += totalPrice;
 	}
+	$('#orderItemTotal').text(total);
+	pagenation();
 }
 
 function displayPlacedOrderItems(data){
@@ -338,9 +361,11 @@ function placeOrder(){
        	'Content-Type': 'application/json'
        },
 	   success: function(response) {
-	        alert("Added Successfully")
+	        successMessage("Order created successfully.")
 	        $('#create-order-modal').modal('toggle');
+	        cartItemsMap.clear()
 	   		getOrderList();
+	   		displayCartItems();
 	   },
 	   error: handleAjaxError
 	});
@@ -366,7 +391,7 @@ function updateOrder(){
        	'Content-Type': 'application/json'
        },
 	   success: function(response) {
-	        alert("Updated Successfully")
+	        alert("Order updated successfully")
 	        $('#view-order-modal').modal('toggle');
 	   		getOrderList();
 	   },
@@ -376,15 +401,25 @@ function updateOrder(){
 }
 
 function openModal(){
+    var $tbody = $('#cartItem-table').find('tbody');
+    $tbody.empty();
     $("#cart-item-form input[name=barcode]").val("");
     $("#cart-item-form input[name=quantity]").val("");
     $("#cart-item-form input[name=sellingPrice]").val("");
+    $('#cartItemTotal').text(0);
+    $('#cartItem-table').DataTable().destroy();
+
 }
 
+
 function openOrderModal(){
+    var $tbody = $('#orderItem-table').find('tbody');
+    $tbody.empty();
     $("#order-item-form input[name=barcode]").val("");
     $("#order-item-form input[name=quantity]").val("");
     $("#order-item-form input[name=sellingPrice]").val("");
+    $('#cartItemTotal').text(0);
+    $('#orderItem-table').DataTable().destroy();
 }
 
 

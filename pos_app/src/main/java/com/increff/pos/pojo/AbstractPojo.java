@@ -13,10 +13,8 @@ import java.time.ZonedDateTime;
 @Setter
 public class AbstractPojo {
     @CreationTimestamp
-    @Column(name = "created_at")
     private ZonedDateTime createdAt;
     @UpdateTimestamp
-    @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
     @Version
     private Integer version;

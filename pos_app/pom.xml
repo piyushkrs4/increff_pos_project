@@ -38,6 +38,12 @@
 
 	</properties>
 
+	<parent>
+		<groupId>com.increff</groupId>
+		<artifactId>increff_pos_project</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
 	<dependencies>
 
 		<!-- SPRING -->
@@ -119,10 +125,16 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>3.0.1-b08</version>
 		</dependency>
 
 		<!-- Apache commons -->

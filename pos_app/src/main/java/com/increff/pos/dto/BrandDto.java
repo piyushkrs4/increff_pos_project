@@ -21,11 +21,11 @@ public class BrandDto {
     @Autowired
     private BrandService brandService;
 
-    public void add(BrandForm brandForm) throws ApiException, IllegalAccessException {
+    public Integer add(BrandForm brandForm) throws ApiException, IllegalAccessException {
         validate(brandForm);
         normalize(brandForm);
         BrandPojo brandPojo = convertGeneric(brandForm, BrandPojo.class);
-        brandService.add(brandPojo);
+        return brandService.add(brandPojo);
     }
 
     public List<BrandData> getAll() throws ApiException {

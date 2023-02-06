@@ -22,6 +22,7 @@ function addBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+	        successMessage("Brand and category added successfully!")
 	   		getBrandList();
 	   		$('#add-brand-modal').modal('toggle');
 	   },
@@ -48,6 +49,7 @@ function updateBrand(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+	        successMessage("Brand and category updated successfully.")
 	   		getBrandList();   
 	   },
 	   error: handleAjaxError
@@ -64,7 +66,7 @@ function getBrandList(){
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		displayBrandList(data);  
+	   		displayBrandList(data);
 	   },
 	   error: handleAjaxError
 	});
@@ -92,6 +94,7 @@ function uploadRows(){
 	updateUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
+	    successMessage("Brands and categories uploaded successfully!")
 		return;
 	}
 	
@@ -136,7 +139,7 @@ function displayBrandList(data){
 
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = ' <button class = "btn btn-warning" onclick="displayEditBrand(' + ++sno + ')"><i class="fa-solid fa-pen-to-square"></i></button>'
+		var buttonHtml = ' <button class = "btn btn-warning" onclick="displayEditBrand(' + ++sno + ')"><i class="fa-solid fa-pen"></i></button>'
 		var rowId = 'brand-row-' + sno
 		var row = '<tr id = "' + rowId + '">'
 		+ '<td>' + sno + '</td>'

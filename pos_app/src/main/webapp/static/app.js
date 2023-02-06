@@ -12,12 +12,26 @@ function toJson($form){
     return json;
 }
 
-
 function handleAjaxError(response){
-   var message = JSON.parse(response.responseText);
-   document.getElementById('toast').style.backgroundColor = "red";
-   document.getElementById('toast-message').innerHTML = message.message;
-   $('.toast').toast('show');
+    var message = JSON.parse(response.responseText);
+    document.getElementById('toast').classList.remove('bg-warning','bg-danger','bg-success');
+    document.getElementById('toast').classList.add('bg-danger');
+    document.getElementById('toast-message').innerHTML=message.message;
+    $(".toast").toast('show');
+}
+
+function errorMessage(message){
+    document.getElementById('toast').classList.remove('bg-warning','bg-danger','bg-success');
+    document.getElementById('toast').classList.add('bg-danger');
+    document.getElementById('toast-message').innerHTML=message;
+    $(".toast").toast('show');
+}
+
+function successMessage(message){
+    document.getElementById('toast').classList.remove('bg-warning','bg-danger','bg-success');
+    document.getElementById('toast').classList.add('bg-success');
+    document.getElementById('toast-message').innerHTML=message;
+    $(".toast").toast('show');
 }
 
 function readFileData(file, callback){

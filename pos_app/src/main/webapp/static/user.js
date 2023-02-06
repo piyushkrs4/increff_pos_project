@@ -18,6 +18,7 @@ function addUser(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+	        successMessage("User added successfully")
 	   		getUserList();    
 	   },
 	   error: handleAjaxError
@@ -45,6 +46,7 @@ function deleteUser(id){
 	   url: url,
 	   type: 'DELETE',
 	   success: function(data) {
+	        successMessage("User deleted successfully")
 	   		getUserList();    
 	   },
 	   error: handleAjaxError

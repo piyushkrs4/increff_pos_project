@@ -14,9 +14,10 @@ public class BrandService {
     @Autowired
     private BrandDao brandDao;
 
-    public void add(BrandPojo brandPojo) throws ApiException {
+    public Integer add(BrandPojo brandPojo) throws ApiException {
         checkBrandCategoryExistence(brandPojo.getBrand(), brandPojo.getCategory());
         brandDao.insert(brandPojo);
+        return brandPojo.getId();
     }
 
     public BrandPojo get(Integer brandId) throws ApiException {

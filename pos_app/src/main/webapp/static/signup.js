@@ -24,6 +24,7 @@ function addUser(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+	        successMessage("Account created successfully")
 //	   		alert("account created");
 	   		window.location.href = getLoginUiUrl();
 	   },

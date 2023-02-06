@@ -5,28 +5,16 @@ import com.increff.pos.model.*;
 import com.increff.pos.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.List;
 
 @Api
 @RestController
 @RequestMapping(path = "/api/operator")
 public class OperatorApiController {
-
-    private static final String PDF_FILE_PATH = "D:\\WorkSpace\\IncreffProjects\\increff_pos_project\\src\\main\\resources\\com.increff.pdf\\PdfFiles\\invoice_";
     @Autowired
     private BrandDto brandDto;
     @Autowired
@@ -94,10 +82,7 @@ public class OperatorApiController {
 
     @ApiOperation(value = "Download Pdf")
     @RequestMapping(value="/orders/{orderId}/download-invoice", method=RequestMethod.GET)
-    public String getInvoice(@PathVariable Integer orderId) throws IOException {
-        String filePath = PDF_FILE_PATH + orderId + ".pdf";
-        byte[] fileContent = FileUtils.readFileToByteArray(new File(filePath));
-        String encodedString = Base64.getEncoder().encodeToString(fileContent);
-        return encodedString;
+    public String downloadInvoice(@PathVariable Integer orderId) throws IOException {
+        return pdfGeneratorDto.downloadInvoice(orderId);
     }
 }

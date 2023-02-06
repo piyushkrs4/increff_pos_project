@@ -19,7 +19,7 @@ import java.util.*;
 @Transactional(rollbackFor = ApiException.class)
 public class DailyReportService {
 
-    private static final String SCHEDULER_TIME = "0 36 00 * * *";
+    private static final String SCHEDULER_TIME = "0 36 11 * * *";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String START_TIME = "t00:00:00.000Z";
     private static final String END_TIME = "t23:59:59.000Z";

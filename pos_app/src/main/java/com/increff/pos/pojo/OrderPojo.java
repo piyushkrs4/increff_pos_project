@@ -9,14 +9,11 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Getter
 @Setter
-@Table(name = "order_pojo")
 public class OrderPojo extends AbstractPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "order_code")
     private String orderCode;
-    @Column(name = "order_status")
     private Boolean orderStatus;
 
     public OrderPojo() {

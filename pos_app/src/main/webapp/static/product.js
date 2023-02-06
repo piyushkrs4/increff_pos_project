@@ -29,6 +29,7 @@ function addProduct(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+	        successMessage("Product added successfully")
 	   		getProductList();
 	   		$('#add-product-modal').modal('toggle');
 	   },
@@ -56,6 +57,7 @@ function updateProduct(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
+	        successMessage("Product updated successfully")
 	   		getProductList();
 	   },
 	   error: handleAjaxError
@@ -112,6 +114,7 @@ function uploadRows(){
 	updateUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
+	    successMessage("Products uploaded successfully")
 		return;
 	}
 
@@ -156,7 +159,7 @@ function displayProductList(data){
 
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = ' <button class = "btn btn-warning" onclick="displayEditProduct(' + ++sno + ')">edit</button>'
+		var buttonHtml = ' <button class = "btn btn-warning" onclick="displayEditProduct(' + ++sno + ')"><i class="fa-solid fa-pen"></i></button>'
 		var rowId = 'product-row-' + sno
 		var row = '<tr id = "' + rowId + '">'
 		+ '<td>' + sno + '</td>'
