@@ -12,6 +12,8 @@ function getOperatorInventoryUrl(){
 function addInventory(event){
 	//Set the values to update
 	var $form = $("#inventory-form");
+	if(!validateForm($form))
+	    return;
 	var json = toJson($form);
 	var url = getSupervisorInventoryUrl();
 

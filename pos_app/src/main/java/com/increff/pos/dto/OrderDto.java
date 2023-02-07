@@ -37,6 +37,8 @@ public class OrderDto {
     }
 
     public void addOrder(List<OrderItemForm> orderItemFormList) throws ApiException, IllegalAccessException {
+        if (orderItemFormList.size() == 0)
+            throw new ApiException("Please add at least one item to place order");
         List<OrderItemPojo> orderItemPojoList = new ArrayList<>();
         for (OrderItemForm orderItemForm : orderItemFormList) {
             validate(orderItemForm);

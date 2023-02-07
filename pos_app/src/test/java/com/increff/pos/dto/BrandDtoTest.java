@@ -10,7 +10,6 @@ import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -52,23 +51,29 @@ public class BrandDtoTest extends AbstractUnitTest {
         BrandForm brandForm = new BrandForm();
         brandForm.setBrand("");
         brandForm.setCategory("category");
-
-//        exceptionRule.expect(ConstraintViolationException.class);
-//        exceptionRule.expectMessage("[Brand must not be blank]");
         brandDto.add(brandForm);
     }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void testEmptyCategoryOnAdd() throws ApiException, IllegalAccessException {
+        BrandForm brandForm = new BrandForm();
+        brandForm.setBrand("brand");
+        brandForm.setCategory("");
+        brandDto.add(brandForm);
+    }
+
 
     @Test
     public void testGetAll() throws ApiException, IllegalAccessException {
         BrandForm brandForm = new BrandForm();
-        for(Integer i = 0; i < 10; i++){
+        for (Integer i = 0; i < 10; i++) {
             brandForm.setBrand("Brand_" + i);
             brandForm.setCategory("Category_" + i);
             brandDto.add(brandForm);
         }
-        assertEquals(10, brandDto.getAll().size());
-        List<BrandData> brandDataList = new ArrayList<>();
-        for(Integer i = 0; i < 10; i++){
+        List<BrandData> brandDataList = brandDto.getAll();
+        assertEquals(10, brandDataList.size());
+        for (Integer i = 0; i < 10; i++) {
             assertEquals("brand_" + i, brandDataList.get(i).getBrand());
             assertEquals("category_" + i, brandDataList.get(i).getCategory());
         }
@@ -76,15 +81,16 @@ public class BrandDtoTest extends AbstractUnitTest {
 
 
     @Test
-    public void update() throws ApiException, IllegalAccessException {
+    public void testUpdate() throws ApiException, IllegalAccessException {
         BrandForm brandForm = new BrandForm();
-        brandForm.setBrand("Apple");
-        brandForm.setCategory("headphone");
+        brandForm.setBrand("Brand");
+        brandForm.setCategory("Category");
         Integer brandId = brandDto.add(brandForm);
-        brandForm.setCategory("mobile");
+        brandForm.setBrand("new Brand");
+        brandForm.setCategory("new Category");
         brandDto.update(brandId, brandForm);
         brandForm = brandDto.getAll().get(0);
-        assertEquals("apple", brandForm.getBrand());
-        assertEquals("mobile", brandForm.getCategory());
+        assertEquals("new brand", brandForm.getBrand());
+        assertEquals("new category", brandForm.getCategory());
     }
 }

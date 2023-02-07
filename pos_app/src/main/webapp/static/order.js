@@ -251,7 +251,7 @@ function displayOrderItems(){
     var total = 0;
 	for (let [key, value] of cartItemsMap){
 	    var barcode = key.toString()
-	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteCartItem(\'' + barcode + '\')">delete</button>'
+	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteOrderItem(\'' + barcode + '\')">delete</button>'
 	    var totalPrice = value[0] * value[1];
         var row = '<tr>'
         + '<td>' + sno++ + '</td>'
@@ -418,7 +418,7 @@ function openOrderModal(){
     $("#order-item-form input[name=barcode]").val("");
     $("#order-item-form input[name=quantity]").val("");
     $("#order-item-form input[name=sellingPrice]").val("");
-    $('#cartItemTotal').text(0);
+    $('#orderItemTotal').text(0);
     $('#orderItem-table').DataTable().destroy();
 }
 

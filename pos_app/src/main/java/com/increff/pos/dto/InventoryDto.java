@@ -13,11 +13,10 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.increff.pos.util.Converter.*;
-import static com.increff.pos.util.Normalizer.normalizeInventoryForm;
+import static com.increff.pos.util.Converter.convertGeneric;
+import static com.increff.pos.util.Converter.convertInventoryPojoToData;
 import static com.increff.pos.util.NormalizerUtil.normalize;
 import static com.increff.pos.util.ValidatorUtil.validate;
-import static com.increff.pos.util.Validatorwa.validateInventoryForm;
 
 @Component
 public class InventoryDto {
@@ -26,12 +25,12 @@ public class InventoryDto {
     @Autowired
     private ProductService productService;
 
-    public void add(InventoryForm inventoryForm) throws ApiException, IllegalAccessException {
+    public Integer add(InventoryForm inventoryForm) throws ApiException, IllegalAccessException {
         validate(inventoryForm);
         normalize(inventoryForm);
         InventoryPojo inventoryPojo = convertGeneric(inventoryForm, InventoryPojo.class);
         inventoryPojo.setProductId(productService.getIdFromBarcode(inventoryForm.getBarcode()));
-        inventoryService.add(inventoryPojo);
+        return inventoryService.add(inventoryPojo);
     }
 
     public List<InventoryData> getAll() throws ApiException {

@@ -26,12 +26,12 @@ public class ProductDto {
     @Autowired
     private BrandService brandService;
 
-    public void add(ProductForm productForm) throws ApiException, IllegalAccessException {
+    public Integer add(ProductForm productForm) throws ApiException, IllegalAccessException {
         validate(productForm);
         normalize(productForm);
         ProductPojo productPojo = convertGeneric(productForm, ProductPojo.class);
         productPojo.setBrandId(brandService.findBrandCategoryId(productForm.getBrand(), productForm.getCategory()));
-        productService.add(productPojo);
+        return productService.add(productPojo);
     }
 
     public List<ProductData> getAll() throws ApiException {

@@ -12,8 +12,12 @@ function getOperatorBrandUrl(){
 function addBrand(event){
 	//Set the values to update
 	var $form = $("#brand-form");
+	if(!validateForm($form)){
+	    return;
+	}
 	var json = toJson($form);
 	var url = getSupervisorBrandUrl();
+
 	$.ajax({
 	   url: url,
 	   type: 'POST',

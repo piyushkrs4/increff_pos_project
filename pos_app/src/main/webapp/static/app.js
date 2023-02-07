@@ -81,4 +81,8 @@ function standardView()
 
 }
 
+function validateForm(form){
+    return form[0].reportValidity();
+}
+
 $(document).ready(standardView);

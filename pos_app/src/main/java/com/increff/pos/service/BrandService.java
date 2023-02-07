@@ -37,8 +37,11 @@ public class BrandService {
         brandDao.update(exBrandPojo);
     }
 
-    public Integer findBrandCategoryId(String brand, String category){
+    public Integer findBrandCategoryId(String brand, String category) throws ApiException {
         BrandPojo brandPojo = brandDao.selectBrandCategory(brand, category);
+        if (Objects.isNull(brandPojo)) {
+            throw new ApiException("Brand category pair does not exist");
+        }
         return brandPojo.getId();
     }
 

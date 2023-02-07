@@ -15,13 +15,15 @@ public class InventoryService {
     @Autowired
     private InventoryDao inventoryDao;
 
-    public void add(InventoryPojo inventoryPojo) throws ApiException {
+    public Integer add(InventoryPojo inventoryPojo) throws ApiException {
         InventoryPojo exInventoryPojo = getUsingProductId(inventoryPojo.getProductId());
         if (Objects.isNull(exInventoryPojo)) {
             inventoryDao.insert(inventoryPojo);
+            return inventoryPojo.getId();
         } else {
             exInventoryPojo.setQuantity(exInventoryPojo.getQuantity() + inventoryPojo.getQuantity());
             inventoryDao.update(exInventoryPojo);
+            return exInventoryPojo.getId();
         }
     }
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional(rollbackFor = ApiException.class)
@@ -20,16 +21,16 @@ public class ProductService {
     @Autowired
     private InventoryService inventoryService;
 
-    public void add(ProductPojo productPojo) throws ApiException {
-        try{
-            productDao.insert(productPojo);
-            InventoryPojo inventoryPojo = new InventoryPojo();
-            inventoryPojo.setProductId(productPojo.getId());
-            inventoryPojo.setQuantity(0);
-            inventoryService.add(inventoryPojo);
-        }catch(Exception e){
-            throw new ApiException("Barcode already exist");
-        }
+    public Integer add(ProductPojo productPojo) throws ApiException {
+        ProductPojo exProductPojo = productDao.selectUsingBarcode(productPojo.getBarcode());
+        if(!Objects.isNull(exProductPojo))
+            throw new ApiException("Barcode already exist!");
+        productDao.insert(productPojo);
+        InventoryPojo inventoryPojo = new InventoryPojo();
+        inventoryPojo.setProductId(productPojo.getId());
+        inventoryPojo.setQuantity(0);
+        inventoryService.add(inventoryPojo);
+        return productPojo.getId();
     }
 
     public ProductPojo get(Integer productId) throws ApiException {
