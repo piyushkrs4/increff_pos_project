@@ -13,8 +13,9 @@ var brandCategoryMap = new Map();
 //BUTTON ACTIONS
 function filteredSalesReport(event){
 	//Set the values to update
-	$('#sales-report-modal').modal('toggle');
 	var $form = $("#salesReport-form");
+	if(!validateForm($form))
+	    return;
 	var json = toJson($form);
 	var url = getSalesReportUrl();
 	var obj = JSON.parse(json)
@@ -40,6 +41,7 @@ function filteredSalesReport(event){
        },
 	   success: function(response) {
 	   		displaySalesReportList(response);
+	        $('#sales-report-modal').modal('toggle');
 	   },
 	   error: handleAjaxError
 	});
@@ -47,6 +49,13 @@ function filteredSalesReport(event){
 	return false;
 }
 
+function setMAxDateLimit(){
+    document.getElementById("inputEndDate").min = document.getElementById("inputStartDate").value
+}
+
+function setMinDateLimit(){
+    document.getElementById("inputStartDate").max = document.getElementById("inputEndDate").value
+}
 
 function getSalesReportList(){
 	var url = getSalesReportUrl();
@@ -76,6 +85,7 @@ function getBrandCategoryList(){
 //UI DISPLAY METHODS
 
 function displaySalesReportList(data){
+    $('#salesReport-table').DataTable().destroy();
 	var $tbody = $('#salesReport-table').find('tbody');
 	$tbody.empty();
 	var sno = 1;
@@ -93,10 +103,22 @@ function displaySalesReportList(data){
 	}
 	pagenation();
 }
+var $fileName = 'Sales Report'
 
 function pagenation(){
-    $('#salesReport-table').DataTable();
-    $('.dataTables_length').addClass("bs-select");
+    $('#salesReport-table').DataTable({
+          dom: 'Bfrtip',
+          buttons : [
+              {
+                  extend: 'csv',
+                  title : 'Sales Report',
+                  filename: $fileName,
+                  text: '<i class="fa-solid fa-download"></i>',
+              }
+
+          ]
+     });
+     $('.dataTables_length').addClass("bs-select");
 }
 
 function storeBrandCategoryPair(data){
@@ -130,6 +152,7 @@ function getCategory(value){
         var categoryOption = '<option value="All">All</option>';
         $dropDownCategory.append(categoryOption);
         var category = brandCategoryMap.get(value)
+
         for(var i in category){
             var e = category[i];
             categoryOption = '<option value="'+ e + '">' + e + '</option>'
@@ -138,20 +161,25 @@ function getCategory(value){
 
 }
 
-function displayCategory(data){
-    var $dropDownCategory = $('#inputBrandCategory')
-    $dropDownCategory.empty();
-    var categoryOption = '<option value="All">All</option>';
-    $dropDownCategory.append(categoryOption);
-    for(var i in data){
-        var e = data[i];
-        categoryOption = '<option value="'+ e + '">' + e + '</option>'
-        $dropDownCategory.append(categoryOption);
-    }
-}
+//async function downloadCSV() {
+//    var url = getSalesReportUrl() + "/download"
+//    const response = await fetch(url);
+//    const data = await response.text();
+//
+//    const link = document.createElement('a');
+//    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(data));
+//    link.setAttribute('download', 'sales-report.csv');
+//    link.style.display = 'none';
+//
+//    document.body.appendChild(link);
+//    link.click();
+//    document.body.removeChild(link);
+//}
 
 function addModal(){
     document.getElementById("salesReport-form").reset()
+    document.getElementById("inputBrandCategory").options.length = 0;
+    $('#inputBrandCategory').append('<option value="all">All</option>')
     $('#sales-report-modal').modal('toggle');
 }
 
@@ -161,6 +189,8 @@ function init(){
     $('#add').click(addModal);
 	$('#get-filteredSalesReport').click(filteredSalesReport);
 	$('#all-data').click(getSalesReportList);
+	$('#inputStartDate').change(setMAxDateLimit);
+	$('#inputEndDate').change(setMinDateLimit);
 }
 
 $(document).ready(init);

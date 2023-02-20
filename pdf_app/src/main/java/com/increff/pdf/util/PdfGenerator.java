@@ -1,8 +1,7 @@
 package com.increff.pdf.util;
 
-import com.increff.pdf.model.InvoiceData;
 import org.apache.fop.apps.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.xml.transform.*;
@@ -14,14 +13,16 @@ import java.util.Base64;
 
 @Service
 public class PdfGenerator {
-    @Autowired
-    JavaToXml javaToXml;
+    @Value("${xmlFilePath}")
+    private String xmlFilePath;
 
-    public String xmlToPdfConverter(InvoiceData invoiceData) {
+    @Value("${xslFilePath}")
+    private String xslFilePath;
+
+    public String xmlToPdfConverter() {
         try {
-            javaToXml.javaToXmlConverter(invoiceData);
-            File xmlfile = new File("src/main/resources/com.increff.pdf/invoice.xml");
-            File xsltfile = new File("src/main/resources/com.increff.pdf/style.xsl");
+            File xmlfile = new File(xmlFilePath);
+            File xsltfile = new File(xslFilePath);
 
             final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
             FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
@@ -43,12 +44,11 @@ public class PdfGenerator {
                 e.printStackTrace();
             } finally {
                 byte[] pdf = out.toByteArray();
-                String base64 = Base64.getEncoder().encodeToString(pdf);
-                return base64;
+                return Base64.getEncoder().encodeToString(pdf);
             }
         } catch (Exception exp) {
             exp.printStackTrace();
         }
-        return "hello";
+        return "";
     }
 }

@@ -1,11 +1,13 @@
 package com.increff.pos.util;
 
-import com.increff.pos.model.*;
+import com.increff.pos.model.datas.DailyReportData;
+import com.increff.pos.model.datas.InventoryData;
+import com.increff.pos.model.datas.OrderData;
+import com.increff.pos.model.datas.ProductData;
 import com.increff.pos.pojo.*;
 import com.increff.pos.service.ApiException;
 import org.springframework.beans.BeanUtils;
 
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,10 +17,9 @@ public class Converter {
 
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss z";
     private static final String DATE_FORMAT = "dd-MM-yyyy";
-    private static final String UTC = "UTC";
 
     public static <T> T convertGeneric(Object input, Class<T> clazz) throws ApiException {
-        T output = null;
+        T output;
         try {
             output = clazz.newInstance();
             BeanUtils.copyProperties(input, output);
@@ -28,7 +29,7 @@ public class Converter {
         return output;
     }
 
-    public static ProductData convertProductPojoToData(ProductPojo productPojo, BrandPojo brandPojo) throws ApiException {
+    public static ProductData convertProductPojoToData(ProductPojo productPojo, BrandPojo brandPojo) {
         ProductData productData = new ProductData();
         productData.setBarcode(productPojo.getBarcode());
         productData.setBrand(brandPojo.getBrand());
@@ -48,14 +49,13 @@ public class Converter {
         return inventoryData;
     }
 
-    // todo -> make datetime string public static final
     public static OrderData convertOrderPojoToData(OrderPojo orderPojo) {
         OrderData orderData = new OrderData();
-        ZonedDateTime dateTime = orderPojo.getCreatedAt().withZoneSameInstant(ZoneId.of(UTC));
+
+        ZonedDateTime dateTime = orderPojo.getCreatedAt();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
         String formattedDateTime = dateTime.format(dateTimeFormatter);
         orderData.setDatetime(formattedDateTime);
-        orderData.setZonedDateTime(orderPojo.getCreatedAt());
         orderData.setId(orderPojo.getId());
         orderData.setStatus(orderPojo.getOrderStatus());
         orderData.setOrderCode(orderPojo.getOrderCode());

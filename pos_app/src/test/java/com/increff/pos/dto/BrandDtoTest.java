@@ -1,7 +1,7 @@
 package com.increff.pos.dto;
 
-import com.increff.pos.model.BrandData;
-import com.increff.pos.model.BrandForm;
+import com.increff.pos.model.datas.BrandData;
+import com.increff.pos.model.forms.BrandForm;
 import com.increff.pos.service.AbstractUnitTest;
 import com.increff.pos.service.ApiException;
 import org.junit.Rule;
@@ -22,12 +22,12 @@ public class BrandDtoTest extends AbstractUnitTest {
     public ExpectedException exceptionRule = ExpectedException.none();
 
     @Test
-    public void testAdd() throws ApiException, IllegalAccessException {
+    public void testAddBrand() throws ApiException, IllegalAccessException {
         BrandForm brandForm = new BrandForm();
-        brandForm.setBrand("   Test Brand   ");
-        brandForm.setCategory(" teSt catEgOrY ");
-        brandDto.add(brandForm);
-        BrandData brandData = brandDto.getAll().get(0);
+        brandForm.setBrand("Test Brand");
+        brandForm.setCategory("teSt catEgOrY");
+        brandDto.addBrand(brandForm);
+        BrandData brandData = brandDto.getAllBrands().get(0);
         assertEquals("test brand", brandData.getBrand());
         assertEquals("test category", brandData.getCategory());
     }
@@ -39,11 +39,11 @@ public class BrandDtoTest extends AbstractUnitTest {
         String category = "category";
         brandForm.setBrand(brand);
         brandForm.setCategory(category);
-        brandDto.add(brandForm);
+        brandDto.addBrand(brandForm);
 
         exceptionRule.expect(ApiException.class);
         exceptionRule.expectMessage("Brand: " + brand + " and category: " + category + " pair already exist!");
-        brandDto.add(brandForm);
+        brandDto.addBrand(brandForm);
     }
 
     @Test(expected = ConstraintViolationException.class)
@@ -51,7 +51,7 @@ public class BrandDtoTest extends AbstractUnitTest {
         BrandForm brandForm = new BrandForm();
         brandForm.setBrand("");
         brandForm.setCategory("category");
-        brandDto.add(brandForm);
+        brandDto.addBrand(brandForm);
     }
 
     @Test(expected = ConstraintViolationException.class)
@@ -59,7 +59,7 @@ public class BrandDtoTest extends AbstractUnitTest {
         BrandForm brandForm = new BrandForm();
         brandForm.setBrand("brand");
         brandForm.setCategory("");
-        brandDto.add(brandForm);
+        brandDto.addBrand(brandForm);
     }
 
 
@@ -69,9 +69,9 @@ public class BrandDtoTest extends AbstractUnitTest {
         for (Integer i = 0; i < 10; i++) {
             brandForm.setBrand("Brand_" + i);
             brandForm.setCategory("Category_" + i);
-            brandDto.add(brandForm);
+            brandDto.addBrand(brandForm);
         }
-        List<BrandData> brandDataList = brandDto.getAll();
+        List<BrandData> brandDataList = brandDto.getAllBrands();
         assertEquals(10, brandDataList.size());
         for (Integer i = 0; i < 10; i++) {
             assertEquals("brand_" + i, brandDataList.get(i).getBrand());
@@ -85,11 +85,11 @@ public class BrandDtoTest extends AbstractUnitTest {
         BrandForm brandForm = new BrandForm();
         brandForm.setBrand("Brand");
         brandForm.setCategory("Category");
-        Integer brandId = brandDto.add(brandForm);
+        Integer brandId = brandDto.addBrand(brandForm);
         brandForm.setBrand("new Brand");
         brandForm.setCategory("new Category");
-        brandDto.update(brandId, brandForm);
-        brandForm = brandDto.getAll().get(0);
+        brandDto.updateBrand(brandId, brandForm);
+        brandForm = brandDto.getAllBrands().get(0);
         assertEquals("new brand", brandForm.getBrand());
         assertEquals("new category", brandForm.getCategory());
     }

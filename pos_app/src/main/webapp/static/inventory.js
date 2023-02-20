@@ -36,13 +36,14 @@ function addInventory(event){
 }
 
 function updateInventory(event){
-	$('#edit-inventory-modal').modal('toggle');
 	//Get the ID
 	var id = $("#inventory-edit-form input[name=id]").val();	
 	var url = getSupervisorInventoryUrl() + "/" + id;
 
 	//Set the values to update
 	var $form = $("#inventory-edit-form");
+    if(!validateForm($form))
+        return;
 	var json = toJson($form);
 
 	$.ajax({
@@ -55,6 +56,7 @@ function updateInventory(event){
 	   success: function(response) {
 	        successMessage("Inventory updated successfully!")
 	   		getInventoryList();
+	   		$('#edit-inventory-modal').modal('toggle');
 	   },
 	   error: handleAjaxError
 	});
@@ -80,15 +82,27 @@ function getInventoryList(){
 var fileData = [];
 var errorData = [];
 var processCount = 0;
+var errorFlag = 0;
 
 
 function processData(){
 	var file = $('#inventoryFile')[0].files[0];
+	document.getElementById("process-data").disabled = true;
 	readFileData(file, readFileDataCallback);
 }
 
 function readFileDataCallback(results){
 	fileData = results.data;
+	if(fileData.length === 0){
+	    errorMessage("File is empty!")
+	    return;
+	}
+	var row = fileData[0];
+    var title = Object.keys(row);
+    if(title.length!=2 || title[0]!='barcode' || title[1]!='quantity'){
+        errorMessage("Incorrect tsv format please check the sample file!");
+        return;
+    }
 	uploadRows();
 }
 
@@ -97,7 +111,14 @@ function uploadRows(){
 	updateUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
-	    successMessage("Brands and categories uploaded successfully!")
+	    if(errorFlag){
+            warningMessage("There was error in uploading some data!")
+            document.getElementById("download-errors").disabled = false;
+        }
+        else{
+            successMessage("Inventories updated successfully!")
+        }
+        getInventoryList();
 		return;
 	}
 	
@@ -107,6 +128,15 @@ function uploadRows(){
 	
 	var json = JSON.stringify(row);
 	var url = getSupervisorInventoryUrl();
+
+	var rowObj = Object.keys(row);
+    if(rowObj.length != 2){
+        errorFlag = 1;
+        row.error = "Column length must be 2!";
+        errorData.push(row);
+        uploadRows();
+        return;
+    }
 
 	//Make ajax call
 	$.ajax({
@@ -120,7 +150,8 @@ function uploadRows(){
 	   		uploadRows();  
 	   },
 	   error: function(response){
-	   		row.error=response.responseText
+	        errorFlag = 1;
+	   		row.error=response.responseJSON.message
 	   		errorData.push(row);
 	   		uploadRows();
 	   }
@@ -150,10 +181,17 @@ function displayInventoryList(data){
 		+ '<td>'  + e.productName + '</td>'
 		+ '<td>'  + e.quantity + '</td>'
 		+ '<td style="display: none;">' + e.id + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class = "supervisor-view">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	if($("meta[name=role]").attr("content") == "operator"){
+        var elements = document.getElementsByClassName('supervisor-view');
+
+        for (var i = 0; i < elements.length; i ++) {
+            elements[i].style.display = 'none';
+        }
+    }
 	pagenation();
 }
 
@@ -182,8 +220,11 @@ function resetUploadDialog(){
 	processCount = 0;
 	fileData = [];
 	errorData = [];
+	errorFlag = 0;
 	//Update counts	
 	updateUploadDialog();
+	document.getElementById("process-data").disabled = true;
+    document.getElementById("download-errors").disabled = true;
 }
 
 function updateUploadDialog(){
@@ -195,7 +236,22 @@ function updateUploadDialog(){
 function updateFileName(){
 	var $file = $('#inventoryFile');
 	var fileName = $file.val();
-	$('#inventoryFileName').html(fileName);
+	var ok = String(fileName).split(/(\\|\/)/g).pop();
+    if(ok.split('.')[1]!="tsv"){
+        errorMessage("Please select a tsv file!");
+        return;
+    }
+    $('#inventoryFileName').html(ok);
+    $('#rowCount').html("0");
+    $('#processCount').html("0");
+    $('#errorCount').html("0");
+    processCount = 0;
+    rowCount = 0;
+    errorCount = 0;
+    errorFlag = 0;
+    errorData = [];
+    document.getElementById("download-errors").disabled = true;
+    document.getElementById("process-data").disabled = false;
 }
 
 function displayUploadData(){

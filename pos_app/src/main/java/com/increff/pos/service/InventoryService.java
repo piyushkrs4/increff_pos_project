@@ -2,6 +2,7 @@ package com.increff.pos.service;
 
 import com.increff.pos.dao.InventoryDao;
 import com.increff.pos.pojo.InventoryPojo;
+import com.increff.pos.pojo.ProductPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +22,12 @@ public class InventoryService {
             inventoryDao.insert(inventoryPojo);
             return inventoryPojo.getId();
         } else {
-            exInventoryPojo.setQuantity(exInventoryPojo.getQuantity() + inventoryPojo.getQuantity());
-            inventoryDao.update(exInventoryPojo);
+            try {
+                exInventoryPojo.setQuantity(Math.addExact(exInventoryPojo.getQuantity(), inventoryPojo.getQuantity()));
+
+            } catch (Exception e) {
+                throw new ApiException("Cannot add more than " + (Integer.MAX_VALUE - exInventoryPojo.getQuantity()) + " items!");
+            }
             return exInventoryPojo.getId();
         }
     }
@@ -38,18 +43,26 @@ public class InventoryService {
     public void update(Integer inventoryId, InventoryPojo inventoryPojo) throws ApiException {
         InventoryPojo exInventoryPojo = getCheck(inventoryId);
         exInventoryPojo.setQuantity(inventoryPojo.getQuantity());
-        inventoryDao.update(exInventoryPojo);
     }
 
     public InventoryPojo getUsingProductId(Integer productId) {
-        InventoryPojo inventoryPojo = inventoryDao.selectUsingProductId(productId);
-        return inventoryPojo;
+        return inventoryDao.selectUsingProductId(productId);
+    }
+
+    public void updateInventoryOnOrder(Integer quantity, ProductPojo productPojo) throws ApiException {
+        InventoryPojo inventoryPojo = getUsingProductId(productPojo.getId());
+        if (Objects.isNull(inventoryPojo))
+            throw new ApiException("Item not available in inventory for barcode: " + productPojo.getBarcode());
+        else if (inventoryPojo.getQuantity() < quantity)
+            throw new ApiException("Cannot order more than " + inventoryPojo.getQuantity() + " items for barcode: " + productPojo.getBarcode());
+        inventoryPojo.setQuantity(inventoryPojo.getQuantity() - quantity);
+        update(inventoryPojo.getId(), inventoryPojo);
     }
 
     private InventoryPojo getCheck(Integer inventoryId) throws ApiException {
         InventoryPojo inventoryPojo = inventoryDao.select(inventoryId, InventoryPojo.class);
-        if (inventoryPojo == null) {
-            throw new ApiException("Inventory with given ID does not exit, id: " + inventoryId);
+        if (Objects.isNull(inventoryPojo)) {
+            throw new ApiException("Inventory with ID " + inventoryId + " does not exit!");
         }
         return inventoryPojo;
     }

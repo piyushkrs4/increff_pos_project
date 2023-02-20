@@ -1,7 +1,7 @@
 package com.increff.pos.dto;
 
-import com.increff.pos.model.BrandData;
-import com.increff.pos.model.BrandForm;
+import com.increff.pos.model.datas.BrandData;
+import com.increff.pos.model.forms.BrandForm;
 import com.increff.pos.pojo.BrandPojo;
 import com.increff.pos.service.ApiException;
 import com.increff.pos.service.BrandService;
@@ -20,15 +20,15 @@ public class BrandDto {
     @Autowired
     private BrandService brandService;
 
-    public Integer add(BrandForm brandForm) throws ApiException, IllegalAccessException {
+    public Integer addBrand(BrandForm brandForm) throws ApiException, IllegalAccessException {
         validate(brandForm);
         normalize(brandForm);
         BrandPojo brandPojo = convertGeneric(brandForm, BrandPojo.class);
-        return brandService.add(brandPojo);
+        return brandService.addBrand(brandPojo);
     }
 
-    public List<BrandData> getAll() throws ApiException {
-        List<BrandPojo> brandPojoList = brandService.getAll();
+    public List<BrandData> getAllBrands() throws ApiException {
+        List<BrandPojo> brandPojoList = brandService.getAllBrands();
         List<BrandData> brandDataList = new ArrayList<>();
         for (BrandPojo brandPojo : brandPojoList) {
             brandDataList.add(convertGeneric(brandPojo, BrandData.class));
@@ -36,10 +36,10 @@ public class BrandDto {
         return brandDataList;
     }
 
-    public void update(Integer brandId, BrandForm brandForm) throws ApiException, IllegalAccessException {
+    public void updateBrand(Integer brandId, BrandForm brandForm) throws ApiException, IllegalAccessException {
         validate(brandForm);
         normalize(brandForm);
         BrandPojo brandPojo = convertGeneric(brandForm, BrandPojo.class);
-        brandService.update(brandId, brandPojo);
+        brandService.updateBrand(brandId, brandPojo);
     }
 }

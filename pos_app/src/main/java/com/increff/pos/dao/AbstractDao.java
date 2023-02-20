@@ -12,11 +12,11 @@ public abstract class AbstractDao {
 	protected <T> T getSingle(TypedQuery<T> query) {
 		return query.getResultList().stream().findFirst().orElse(null);
 	}
-	
+
 	protected <T> TypedQuery<T> getQuery(String jpql, Class<T> clazz) {
 		return em.createQuery(jpql, clazz);
 	}
-	
+
 	protected EntityManager em() {
 		return em;
 	}
@@ -40,8 +40,6 @@ public abstract class AbstractDao {
 		Query query = em.createQuery(delete_id);
 		query.setParameter("id", id);
 		return query.executeUpdate();
-	}
-	public <T> void update(T p) {
 	}
 
 }

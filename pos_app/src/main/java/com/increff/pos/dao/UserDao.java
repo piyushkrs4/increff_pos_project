@@ -7,7 +7,7 @@ import javax.persistence.TypedQuery;
 
 @Repository
 public class UserDao extends AbstractDao {
-    private static String select_email = "select p from UserPojo p where email=:email";
+    private static final String select_email = "select p from UserPojo p where email=:email";
 
     public UserPojo select(String email) {
         TypedQuery<UserPojo> query = getQuery(select_email, UserPojo.class);

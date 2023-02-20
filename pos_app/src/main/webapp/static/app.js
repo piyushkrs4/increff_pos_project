@@ -12,11 +12,16 @@ function toJson($form){
     return json;
 }
 
+function replace(m){
+console.log(m);
+    return m.replace(/\n/g, "<br />");
+}
+
 function handleAjaxError(response){
     var message = JSON.parse(response.responseText);
     document.getElementById('toast').classList.remove('bg-warning','bg-danger','bg-success');
     document.getElementById('toast').classList.add('bg-danger');
-    document.getElementById('toast-message').innerHTML=message.message;
+    document.getElementById('toast-message').innerHTML=replace(message.message);
     $(".toast").toast('show');
 }
 
@@ -25,6 +30,12 @@ function errorMessage(message){
     document.getElementById('toast').classList.add('bg-danger');
     document.getElementById('toast-message').innerHTML=message;
     $(".toast").toast('show');
+}
+
+function warningMessage(message){
+   document.getElementById('toast').style.backgroundColor = "#e4a11b";
+   document.getElementById('toast-message').innerHTML = replace(message);
+   $('.toast').toast('show');
 }
 
 function successMessage(message){
@@ -72,7 +83,7 @@ function writeFileData(arr){
 function standardView()
 {
     if($("meta[name=role]").attr("content") == "operator"){
-        var elements = document.getElementsByClassName('admin-view');
+        var elements = document.getElementsByClassName('supervisor-view');
 
         for (var i = 0; i < elements.length; i ++) {
             elements[i].style.display = 'none';
@@ -81,8 +92,13 @@ function standardView()
 
 }
 
+function roundUpTo2DecimalPlaces(value){
+    return Math.round((parseFloat(value) + Number.EPSILON) * 100) / 100
+}
+
 function validateForm(form){
     return form[0].reportValidity();
 }
 
 $(document).ready(standardView);
+//$(document).ready(emphasizeNavbarCurrentLink);

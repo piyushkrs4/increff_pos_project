@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static Logger logger = Logger.getLogger(SecurityConfig.class);
+	private static final Logger logger = Logger.getLogger(SecurityConfig.class);
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -26,7 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().authorizeRequests()//
 				.antMatchers("/api/supervisor/**").hasAuthority("supervisor")//
 				.antMatchers("/api/**").hasAnyAuthority("supervisor", "operator")//
-				.antMatchers("/ui/supervisor/**").hasAuthority("supervisor")//
+				.antMatchers("/ui/users").hasAuthority("supervisor")//
+				.antMatchers("/ui/brand-report").hasAuthority("supervisor")//
+				.antMatchers("/ui/inventory-report").hasAuthority("supervisor")//
+				.antMatchers("/ui/daily-report").hasAuthority("supervisor")//
+				.antMatchers("/ui/sales-report").hasAuthority("supervisor")//
 				.antMatchers("/ui/**").hasAnyAuthority("supervisor", "operator")//
 				// Ignore CSRF and CORS
 				.and().csrf().disable().cors().disable();
@@ -34,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
+	public void configure(WebSecurity web) {
 		web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
 				"/swagger-ui.html", "/webjars/**");
 	}

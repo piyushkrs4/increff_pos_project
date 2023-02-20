@@ -1,7 +1,8 @@
 package com.increff.pos.controller;
 
 import com.increff.pos.dto.*;
-import com.increff.pos.model.*;
+import com.increff.pos.model.datas.*;
+import com.increff.pos.model.forms.OrderItemForm;
 import com.increff.pos.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,7 +30,7 @@ public class OperatorApiController {
     @ApiOperation(value = "Gets list of all brands")
     @RequestMapping(path = "/brands", method = RequestMethod.GET)
     public List<BrandData> getAllBrands() throws ApiException {
-        return brandDto.getAll();
+        return brandDto.getAllBrands();
     }
 
     @ApiOperation(value = "Gets list of all products")
@@ -46,13 +47,13 @@ public class OperatorApiController {
 
     @ApiOperation(value = "Adds all OrderItems and creates new order")
     @RequestMapping(path = "/orders", method = RequestMethod.POST)
-    public void addOrder(@RequestBody List<OrderItemForm> orderItemFormList) throws ApiException, IllegalAccessException {
+    public void addOrder(@RequestBody List<OrderItemForm> orderItemFormList) throws ApiException {
         orderDto.addOrder(orderItemFormList);
     }
 
     @ApiOperation(value = "Updates all order item")
     @RequestMapping(path = "orders/{orderId}", method = RequestMethod.PUT)
-    public void updateOrder(@PathVariable Integer orderId, @RequestBody List<OrderItemForm> orderItemFormList) throws ApiException, IllegalAccessException {
+    public void updateOrder(@PathVariable Integer orderId, @RequestBody List<OrderItemForm> orderItemFormList) throws ApiException {
         orderDto.updateOrder(orderId, orderItemFormList);
     }
 
@@ -69,9 +70,9 @@ public class OperatorApiController {
     }
 
     @ApiOperation(value = "Generate Pdf")
-    @RequestMapping(path = "/orders/{orderId}/generate-invoice", method = RequestMethod.POST)
-    public void generateInvoice(@PathVariable Integer orderId, @RequestBody String currentDateTimeData) throws ApiException {
-        pdfGeneratorDto.generatePdf(orderId, currentDateTimeData);
+    @RequestMapping(path = "/orders/{orderId}/generate-invoice", method = RequestMethod.GET)
+    public void generateInvoice(@PathVariable Integer orderId) throws ApiException {
+        pdfGeneratorDto.generatePdf(orderId);
     }
 
     @ApiOperation(value = "Show Placed Order")
@@ -81,7 +82,7 @@ public class OperatorApiController {
     }
 
     @ApiOperation(value = "Download Pdf")
-    @RequestMapping(value="/orders/{orderId}/download-invoice", method=RequestMethod.GET)
+    @RequestMapping(value = "/orders/{orderId}/download-invoice", method = RequestMethod.GET)
     public String downloadInvoice(@PathVariable Integer orderId) throws IOException {
         return pdfGeneratorDto.downloadInvoice(orderId);
     }

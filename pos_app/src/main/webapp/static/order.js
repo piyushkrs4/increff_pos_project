@@ -19,7 +19,6 @@ function getOrderList(){
 
 //UI DISPLAY METHODS
 function displayOrderList(data){
-    $('#order-table').DataTable().destroy();
 	var $tbody = $('#order-table').find('tbody');
 	$tbody.empty();
 	var sno = 0
@@ -29,21 +28,19 @@ function displayOrderList(data){
 		var e = data[i];
 		var orderStatus = e.status;
 		var buttonHtml;
-        let date = new Date(e.datetime);
-        let localDate = date.toLocaleString('en-IN');
 
 		if(!orderStatus){
 		    buttonHtml = '<button class = "btn btn-warning mr-2" onclick="viewOrder(' + e.id + ')"><i class="fa-solid fa-pen"></i></button>'
 		    buttonHtml += '<button class = "btn btn-success" onclick="createInvoice(' + e.id + ')"><i class="fa-sharp fa-solid fa-check"></i></button>'
 		}
 		else{
-		    buttonHtml = '<button class = "btn btn-light mr-2" onclick="getInvoice(' + e.id + ')"><i class="fa-solid fa-download"></i></i></button>'
-            buttonHtml += '<button class = "btn btn-light" onclick="viewPlacedOrder(' + e.id + ')"><i class="fa-solid fa-eye"></i></button>'
+		    buttonHtml = '<button class = "btn btn-secondary mr-2" onclick="getInvoice(' + e.id + ')"><i class="fa-solid fa-download"></i></button>'
+            buttonHtml += '<button class = "btn btn-secondary" onclick="viewPlacedOrder(' + e.id + ')"><i class="fa-solid fa-eye"></i></button>'
 		}
 		var row = '<tr>'
 		+ '<td>' + ++sno + '</td>'
 		+ '<td>' + e.orderCode + '</td>'
-		+ '<td>' + localDate + '</td>'
+		+ '<td>' + e.datetime + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
@@ -53,26 +50,15 @@ function displayOrderList(data){
 
 function pagenation(){
     $('#order-table').DataTable();
-    $('#cartItem-table').DataTable();
-    $('#orderItem-table').DataTable();
     $('.dataTables_length').addClass("bs-select");
 }
 
 
 function createInvoice(id){
 	var url = getOrderUrl() + "/" + id + "/generate-invoice";
-    var date = new Date();
-    var localDate = date.toLocaleString();
-//    var json = {
-//        "currentDateTime": dateStr,
-//    }
 	$.ajax({
 	   url: url,
-	   type: 'POST',
-	   data: localDate,
-	   headers: {
-          'Content-Type': 'application/json'
-       },
+	   type: 'GET',
 	   success: function(data) {
 	        successMessage("Invoice created successfully!")
             getOrderList();
@@ -83,7 +69,6 @@ function createInvoice(id){
 }
 
 function getInvoice(id){
-//    window.location.href = url
     var url = getOrderUrl() + "/" + id + "/download-invoice"
     $.ajax({
        url: url,
@@ -111,24 +96,26 @@ var order_id;
 
 function addCartItem(event){
     var $form = $("#cart-item-form")
+    if(!validateForm($form)){
+        return;
+    }
     var json = toJson($form)
     var e = JSON.parse(json)
     e.barcode = e.barcode.trim()
-    if(e.barcode.length == 0){
-        errorMessage("Please enter barcode!")
-        return
-    }
-    if(e.quantity <= 0){
-        errorMessage("Quantity cannot be less than one!")
-        return
-    }
-    if(e.sellingPrice < 0){
-        errorMessage("Selling price cannot be less than zero")
-        return
-    }
+    e.sellingPrice = roundUpTo2DecimalPlaces(e.sellingPrice)
     var quantity = parseInt(e.quantity)
-    if(cartItemsMap.has(e.barcode))
+    if(cartItemsMap.has(e.barcode)){
+        if(cartItemsMap.get(e.barcode)[1] != e.sellingPrice){
+            errorMessage("Selling price cannot be different for same product!")
+            return
+        }
+        if(quantity + parseInt(cartItemsMap.get(e.barcode)[0]) > 200){
+            warningMessage("Cannot add mor than 200 items!")
+            return
+        }
         quantity += parseInt(cartItemsMap.get(e.barcode)[0])
+    }
+
     cartItemsMap.set(e.barcode, [quantity, e.sellingPrice])
     openModal()
     displayCartItems()
@@ -136,26 +123,27 @@ function addCartItem(event){
 
 function addOrderItem(event){
     var $form = $("#order-item-form")
+    if(!validateForm($form)){
+        return;
+    }
     var json = toJson($form)
     var e = JSON.parse(json)
     e.barcode = e.barcode.trim()
-    if(e.barcode.length == 0){
-        errorMessage("Please enter barcode!")
-        return
-    }
-    if(e.quantity <= 0){
-        errorMessage("Quantity cannot be less than one!")
-        return
-    }
-    if(e.sellingPrice < 0){
-        errorMessage("Selling price cannot be less than zero")
-        return
-    }
+    e.sellingPrice = roundUpTo2DecimalPlaces(e.sellingPrice)
     var quantity = parseInt(e.quantity)
-    if(cartItemsMap.has(e.barcode))
+    if(cartItemsMap.has(e.barcode)){
+        if(cartItemsMap.get(e.barcode)[1] != e.sellingPrice){
+            errorMessage("Selling price cannot be different for same product!")
+            return
+        }
+        if(quantity + parseInt(cartItemsMap.get(e.barcode)[0]) > 200){
+            warningMessage("Cannot add mor than 200 items!")
+            return
+        }
         quantity += parseInt(cartItemsMap.get(e.barcode)[0])
+    }
     cartItemsMap.set(e.barcode, [quantity, e.sellingPrice])
-
+    openOrderModal()
     displayOrderItems()
 }
 
@@ -204,68 +192,123 @@ function getOrderItemList(data){
 
 
 function displayCartItems(){
-    $('#cartItem-table').DataTable().destroy();
 	var $tbody = $('#cartItem-table').find('tbody');
     $tbody.empty();
-	var sno = 1;
+	var itr = 1;
 	var total = 0;
 	for (let [key, value] of cartItemsMap){
 	    var barcode = key.toString()
-	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteCartItem(\'' + barcode + '\')">delete</button>'
-	    var totalPrice = value[0] * value[1];
+	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteCartItem(\'' + barcode + '\')"><i class="fa-solid fa-trash"></i></button>'
+	    var totalPrice = roundUpTo2DecimalPlaces(value[0] * value[1]);
+        var editButtonHtml = '<button id="button'+itr+'"class="btn btn-dark" onclick="editItem(' + itr + ')"><i class="fa-solid fa-pen-to-square"></i></button>';
+
         var row = '<tr>'
-        + '<td>' + sno++ + '</td>'
-        + '<td>' + key + '</td>'
-        + '<td>' + value[0] + '</td>'
-        + '<td>'  + value[1] + '</td>'
-        + '<td>' + totalPrice + '</td>'
-        + '<td>' + buttonHtml + '</td>'
+        +'<td><form id="row'+ itr +'">'+ itr +'</form>'
+        + '<td><label for="barcode" form="row'+itr+'" name="barcode" id="barcode'+itr+'">'+key+'</label></td>'
+        + '<td><input type="number" class="form-control" step = "1" form="row'+itr+'"name="quantity" id="quantity'+itr+'" value="'+value[0]+'" MIN="1" MAX="200" required disabled></td>'
+        + '<td><input type="number" class="form-control" step=".0001" form="row'+itr+'"name="sellingPrice" id="price'+itr+'" value="'+value[1].toFixed(2)+'" MIN="0" MAX="1000000" required disabled></td>'
+        + '<td > <label for="totalPrice" form="row'+itr+'" name="totalPrice" id="totalPrice'+itr+'">' + totalPrice.toFixed(2) + '</td>'
+        + '<td>' + editButtonHtml +"   "+ buttonHtml + '</td>'
         + '</tr>';
+
+        itr++;
+
         $tbody.append(row);
         total += totalPrice;
 	}
-	$('#cartItemTotal').text(total);
+	if(itr < 2)
+	    document.getElementById('place-order').disabled=true;
+	else
+	    document.getElementById('place-order').disabled=false;
+	if(total > 0)
+	    $tbody.append('<tr style="font-weight: bold; background-color: LemonChiffon"><td colspan="3"></td><td>'+ 'Total:' +'</td><td>'+roundUpTo2DecimalPlaces(total).toFixed(2)+'</td><td></td></tr>')
+}
 
-	pagenation();
+function editItem(id){
+    document.getElementById('price'+id).disabled=false;
+    document.getElementById('quantity'+id).disabled=false;
+    document.getElementById('button'+id).innerHTML = "<i class='fa-sharp fa-solid fa-check'></i>";
+    document.getElementById('button'+id).onclick = function(){edits(id);}
+}
+
+function editOrderItem(id){
+    document.getElementById('price_update'+id).disabled=false;
+    document.getElementById('quantity_update'+id).disabled=false;
+    document.getElementById('button_update'+id).innerHTML = "<i class='fa-sharp fa-solid fa-check'></i>";
+    document.getElementById('button_update'+id).onclick = function(){orderEdits(id);}
+}
+
+function edits(id){
+    var $form = $("#row"+id);
+    if(!validateForm($form))
+        return;
+    var json = toJson($form)
+    var e = JSON.parse(json)
+    var barcode = document.getElementById('barcode'+id).innerHTML.trim()
+
+    e.sellingPrice = roundUpTo2DecimalPlaces(e.sellingPrice)
+    var quantity = parseInt(e.quantity)
+    cartItemsMap.set(barcode, [quantity, e.sellingPrice])
+
+    document.getElementById('price'+id).disabled=true;
+    document.getElementById('quantity'+id).disabled=true;
+    document.getElementById('button'+id).innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
+    document.getElementById('button'+id).onclick = function(){editItem(id);}
+    displayCartItems();
+}
+
+function orderEdits(id){
+    var $form = $("#row_update"+id);
+    if(!validateForm($form))
+        return;
+    var json = toJson($form)
+    var e = JSON.parse(json)
+    var barcode = document.getElementById('barcode_update'+id).innerHTML.trim()
+
+    e.sellingPrice = roundUpTo2DecimalPlaces(e.sellingPrice)
+    var quantity = parseInt(e.quantity)
+    cartItemsMap.set(barcode, [quantity, e.sellingPrice])
+
+    document.getElementById('price_update'+id).disabled=true;
+    document.getElementById('quantity_update'+id).disabled=true;
+    document.getElementById('button_update'+id).innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
+    document.getElementById('button_update'+id).onclick = function(){editOrderItem(id);}
+    displayOrderItems();
+
 }
 
 
 function displayOrderItems(){
-    $('#orderItem-table').DataTable().destroy();
-    console.log("hi")
 	var $tbody = $('#orderItem-table').find('tbody');
     $tbody.empty();
-	var sno = 1;
-//	for (let [key, value] of cartItemsMap){
-//	    var barcode = key.toString()
-//	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteOrderItem(\'' + barcode + '\')">delete</button>'
-//        var row = '<tr>'
-//        + '<td>' + sno++ + '</td>'
-//        + '<td>' + key + '</td>'
-//        + '<td>' + value[0] + '</td>'
-//        + '<td>'  + value[1] + '</td>'
-//        + '<td>' + buttonHtml + '</td>'
-//        + '</tr>';
-//        $tbody.append(row);
-//	}
+	var itr = 1;
     var total = 0;
 	for (let [key, value] of cartItemsMap){
 	    var barcode = key.toString()
-	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteOrderItem(\'' + barcode + '\')">delete</button>'
-	    var totalPrice = value[0] * value[1];
+	    var buttonHtml = '<button class = "btn btn-danger" onclick="deleteOrderItem(\'' + barcode + '\')"><i class="fa-solid fa-trash"></i></button>'
+	    var totalPrice = roundUpTo2DecimalPlaces(value[0] * value[1]);
+
+	    var editButtonHtml = '<button id="button_update'+itr+'"class="btn btn-dark" onclick="editOrderItem(' + itr + ')"><i class="fa-solid fa-pen-to-square"></i></button>';
+
         var row = '<tr>'
-        + '<td>' + sno++ + '</td>'
-        + '<td>' + key + '</td>'
-        + '<td>' + value[0] + '</td>'
-        + '<td>'  + value[1] + '</td>'
-        + '<td>' + totalPrice + '</td>'
-        + '<td>' + buttonHtml + '</td>'
+        +'<td><form id="row_update'+ itr +'">'+ itr +'</form>'
+        + '<td><label for="barcode" class="form-control" form="row_update'+itr+'" name="barcode" id="barcode_update'+itr+'">'+key+'</label></td>'
+        + '<td><input type="number" class="form-control" step = "1" form="row_update'+itr+'"name="quantity" id="quantity_update'+itr+'" value="'+value[0]+'" MIN="1" MAX="200" required disabled></td>'
+        + '<td><input type="number" class="form-control" step=".0001" form="row_update'+itr+'"name="sellingPrice" id="price_update'+itr+'" value="'+value[1].toFixed(2)+'" MIN="0" MAX="1000000" required disabled></td>'
+        + '<td > <label for="totalPrice" class="form-control" form="row_update'+itr+'" name="totalPrice" id="totalPrice_update'+itr+'">' + totalPrice.toFixed(2) + '</td>'
+        + '<td>' + editButtonHtml +"   "+ buttonHtml + '</td>'
         + '</tr>';
+
+        itr++;
         $tbody.append(row);
         total += totalPrice;
 	}
-	$('#orderItemTotal').text(total);
-	pagenation();
+	if(itr < 2)
+	    document.getElementById('update-order').disabled=true;
+	else
+	    document.getElementById('update-order').disabled=false;
+	if(total > 0)
+	    $tbody.append('<tr style="font-weight: bold; background-color: LemonChiffon"><td colspan="3"></td><td>'+ 'Total:' +'</td><td>'+roundUpTo2DecimalPlaces(total).toFixed(2)+'</td><td></td></tr>')
 }
 
 function displayPlacedOrderItems(data){
@@ -280,9 +323,6 @@ function displayPlacedOrderItems(data){
     var $invoiceTime = $('#inputInvoiceTime')
     $invoiceTime.empty()
     $invoiceTime.append(data.invoiceTime);
-    var $total = $('#inputTotal')
-    $total.empty()
-    $total.append(data.total);
     var $orderCode = $('#inputOrderCode')
     $orderCode.empty()
     $orderCode.append(data.orderCode);
@@ -293,20 +333,12 @@ function displayPlacedOrderItems(data){
         + '<td>' + e.productName + '</td>'
         + '<td>' + e.barcode + '</td>'
         + '<td>'  + e.quantity + '</td>'
-        + '<td>' + e.unitPrice + '</td>'
-        + '<td>' + e.total + '</td>'
+        + '<td>' + e.unitPrice.toFixed(2) + '</td>'
+        + '<td>' + e.total.toFixed(2) + '</td>'
         + '</tr>';
         $tbody.append(row);
 	}
-	var row = '<tr>'
-	+ '<td></td>'
-	+ '<td></td>'
-	+ '<td></td>'
-	+ '<td></td>'
-	+ '<td> Total: </td>'
-    + '<td>' + data.total + '</td>'
-    + '</tr>';
-    $tbody.append(row);
+    $tbody.append('<tr style="font-weight: bold; background-color: LemonChiffon"><td colspan="4"></td><td>'+ 'Total:' +'</td><td>'+data.total.toFixed(2)+'</td></tr>')
 }
 
 function deleteCartItem(barcode){
@@ -324,6 +356,7 @@ function displayCart(){
     var $tbody = $('#cartItem-table').find('tbody');
     $tbody.empty();
     openModal();
+    document.getElementById('place-order').disabled=true;
     $('#create-order-modal').modal('toggle');
 }
 
@@ -345,13 +378,23 @@ function displayPlacedOrder(){
 function placeOrder(){
 	var url = getOrderUrl();
 	var jsonList = [];
+	if(cartItemsMap.length == 0){
+	    errorMessage("Add at least one item to order!")
+	    return;
+	}
+	var totalPrice = 0;
 	for (let [key, value] of cartItemsMap){
 	    var json = {
 	        "barcode": key,
 	        "quantity": value[0],
 	        "sellingPrice": value[1]
 	    }
+	    totalPrice += value[0] * value[1]
 	    jsonList.push(json)
+	}
+	if(totalPrice > 2147483647){
+	    errorMessage("Cannot order with total price more than 2000000000!")
+        return;
 	}
 	$.ajax({
 	   url: url,
@@ -365,7 +408,6 @@ function placeOrder(){
 	        $('#create-order-modal').modal('toggle');
 	        cartItemsMap.clear()
 	   		getOrderList();
-	   		displayCartItems();
 	   },
 	   error: handleAjaxError
 	});
@@ -374,15 +416,25 @@ function placeOrder(){
 
 function updateOrder(){
 	var url = getOrderUrl() + "/" + order_id ;
+    if(cartItemsMap.length == 0){
+        errorMessage("Add at least one item to order!")
+        return;
+    }
 	var jsonList = [];
+	var totalPrice = 0;
 	for (let [key, value] of cartItemsMap){
 	    var json = {
 	        "barcode": key,
 	        "quantity": value[0],
 	        "sellingPrice": value[1]
 	    }
+	    totalPrice += value[0] * value[1];
 	    jsonList.push(json)
 	}
+	if(totalPrice > 2147483647){
+        errorMessage("Cannot order with total price more than 2000000000!")
+        return;
+    }
 	$.ajax({
 	   url: url,
 	   type: 'PUT',
@@ -391,7 +443,7 @@ function updateOrder(){
        	'Content-Type': 'application/json'
        },
 	   success: function(response) {
-	        alert("Order updated successfully")
+	        successMessage("Order updated successfully")
 	        $('#view-order-modal').modal('toggle');
 	   		getOrderList();
 	   },
@@ -406,8 +458,6 @@ function openModal(){
     $("#cart-item-form input[name=barcode]").val("");
     $("#cart-item-form input[name=quantity]").val("");
     $("#cart-item-form input[name=sellingPrice]").val("");
-    $('#cartItemTotal').text(0);
-    $('#cartItem-table').DataTable().destroy();
 
 }
 
@@ -418,8 +468,6 @@ function openOrderModal(){
     $("#order-item-form input[name=barcode]").val("");
     $("#order-item-form input[name=quantity]").val("");
     $("#order-item-form input[name=sellingPrice]").val("");
-    $('#orderItemTotal').text(0);
-    $('#orderItem-table').DataTable().destroy();
 }
 
 

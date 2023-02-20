@@ -2,6 +2,7 @@ package com.increff.pdf.util;
 
 import com.increff.pdf.model.InvoiceData;
 import com.increff.pdf.model.InvoiceLineItem;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,6 +17,9 @@ import java.io.File;
 
 @Service
 public class JavaToXml {
+
+    @Value("${xmlFilePath}")
+    private String xmlFilePath;
 
     public void javaToXmlConverter(InvoiceData invoiceData){
         try {
@@ -99,12 +103,8 @@ public class JavaToXml {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("src/main/resources/com.increff.pdf/invoice.xml"));
+            StreamResult result = new StreamResult(new File(xmlFilePath));
             transformer.transform(source, result);
-
-            // Output to console for testing
-//            StreamResult consoleResult = new StreamResult(System.out);
-//            transformer.transform(source, consoleResult);
         } catch (Exception e) {
             e.printStackTrace();
         }

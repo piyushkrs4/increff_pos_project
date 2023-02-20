@@ -1,57 +1,73 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 
 <head th:replace="snippets.html :: name_head"></head>
 
 <body>
+<section class="vh-100" style="background-color: #f1f1f1;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block">
+                            <img th:src="@{/static/images/loginImage.jpeg}"
+                                 alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; height: 100%"/>
+                        </div>
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
 
-<nav th:replace="snippets.html :: name_app_navbar"></nav>
+                                <form class="form" id="signup-form" method="POST" th:action="@{/session/signup}">
 
-<div class="container">
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <span class="h1 fw-bold mb-0">Increff POS</span>
+                                    </div>
 
-<div class="row">
-<div class="col-6">
-	
-	<div class="card">
-  	<div class="card-header">
-    	Sign Up
-  	</div>
-  	<div class="card-body">
-		<form class="form" id="signup-form">
-			<div class="form-group">
-				<label for="inputEmail" class="col-sm-10 col-form-label">Email</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="email" id="inputEmail" placeholder="enter email">
-			    </div>
-			</div>
-			<div class="form-group">
-			    <label for="inputPassword" class="col-sm-10 col-form-label">Password</label>
-			    <div class="col-sm-10">
-			      <input type="password" class="form-control" name="password" id="inputPassword" placeholder="password">
-			    </div>
-			</div>
-			<button type="button" class="btn btn-primary" id="signup">Submit</button>
-		</form>
-	</div>
-<!--	<div class="card-footer text-danger">-->
-<!--		[[${info.getMessage()}]]-->
-<!--	</div>-->
-	
-	</div>
-	
-	
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Create new account</h5>
 
-</div> <!-- Col -->
-</div> <!-- Row -->
-	<div th:replace="snippets.html :: name_toast"></div>
-</div> <!-- Container-->
+                                    <div class="form-outline mb-4">
+                                        <input type="email" name="email" id="email"
+                                               class="form-control form-control-lg" required/>
+                                        <label for="email" class="form-label">Email address</label>
+                                    </div>
 
-<footer th:replace="snippets.html :: name_footer"></footer>
+                                    <div class="form-outline mb-4">
+                                        <input type="password" name="password" id="password"
+                                               class="form-control form-control-lg" maxlength="8" minlength="8"
+                                               required/>
+                                        <label class="form-label" for="password">Password</label>
+                                    </div>
 
-<script th:src="@{/static/signup.js}"/>
-</script>
+                                    <div class="pt-1 mb-4">
+
+                                        <button type="button" class="btn btn-dark btn-lg btn-block" id="signup">Sign
+                                            up
+                                        </button>
+                                        <br>
+                                        <hr>
+                                        <a class="btn btn-secondary btn-lg btn-block" id="login" href="/pos/site/login">Already
+                                            have account? Login
+                                        </a>
+                                    </div>
+
+                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">[[${info.getMessage()}]]</p>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="snippets.html :: name_toast"></div>
 
 </body>
+
+<footer th:replace="snippets.html :: name_footer"></footer>
+<script th:src="@{/static/signup.js}"/>
+</script>
 
 </html>

@@ -5,7 +5,8 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 import java.time.ZonedDateTime;
 
 @MappedSuperclass
@@ -17,5 +18,5 @@ public class AbstractPojo {
     @UpdateTimestamp
     private ZonedDateTime updatedAt;
     @Version
-    private Integer version;
+    private Long version;
 }

@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional(rollbackFor = ApiException.class)
@@ -14,52 +15,49 @@ public class BrandService {
     @Autowired
     private BrandDao brandDao;
 
-    public Integer add(BrandPojo brandPojo) throws ApiException {
+    public Integer addBrand(BrandPojo brandPojo) throws ApiException {
         checkBrandCategoryExistence(brandPojo.getBrand(), brandPojo.getCategory());
         brandDao.insert(brandPojo);
         return brandPojo.getId();
     }
 
-    public BrandPojo get(Integer brandId) throws ApiException {
-        return getCheck(brandId);
+    public BrandPojo getBrand(Integer brandId) throws ApiException {
+        return getBrandCheck(brandId);
     }
 
-    public List<BrandPojo> getAll() {
+    public List<BrandPojo> getAllBrands() {
         return brandDao.selectAll(BrandPojo.class);
     }
 
 
-    public void update(Integer brandId, BrandPojo brandPojo) throws ApiException {
+    public void updateBrand(Integer brandId, BrandPojo brandPojo) throws ApiException {
         checkBrandCategoryExistence(brandPojo.getBrand(), brandPojo.getCategory());
-        BrandPojo exBrandPojo = getCheck(brandId);
+        BrandPojo exBrandPojo = getBrandCheck(brandId);
         exBrandPojo.setBrand(brandPojo.getBrand());
         exBrandPojo.setCategory(brandPojo.getCategory());
-        brandDao.update(exBrandPojo);
     }
 
     public Integer findBrandCategoryId(String brand, String category) throws ApiException {
         BrandPojo brandPojo = brandDao.selectBrandCategory(brand, category);
         if (Objects.isNull(brandPojo)) {
-            throw new ApiException("Brand category pair does not exist");
+            throw new ApiException(brand + ", " + category + " pair does not exist!");
         }
         return brandPojo.getId();
     }
 
-    private BrandPojo getCheck(Integer brandId) throws ApiException {
+    private BrandPojo getBrandCheck(Integer brandId) throws ApiException {
         BrandPojo brandPojo = brandDao.select(brandId, BrandPojo.class);
         if (Objects.isNull(brandPojo)) {
-            throw new ApiException("Brand with given ID does not exit, id: " + brandId);
+            throw new ApiException("Brand with ID " + brandId + " does not exit!");
         }
         return brandPojo;
     }
 
     private void checkBrandCategoryExistence(String brand, String category) throws ApiException {
         BrandPojo exBrandPojo = brandDao.selectBrandCategory(brand, category);
-        if(!Objects.isNull(exBrandPojo)){
+        if (Objects.nonNull(exBrandPojo)) {
             throw new ApiException("Brand: " + brand + " and category: " + category + " pair already exist!");
         }
     }
 
 }
-
-// Todo -> error message user friendly

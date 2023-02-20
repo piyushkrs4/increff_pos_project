@@ -12,6 +12,8 @@ function getLoginUiUrl(){
 function addUser(event){
 	//Set the values to update
 	var $form = $("#signup-form");
+	if(!validateForm($form))
+	    return;
 	var json = toJson($form);
 	var url = getSignupUrl();
 	console.log(url);
@@ -25,20 +27,14 @@ function addUser(event){
        },	   
 	   success: function(response) {
 	        successMessage("Account created successfully")
-//	   		alert("account created");
 	   		window.location.href = getLoginUiUrl();
 	   },
 	   error: handleAjaxError
 	});
-	console.log("sdt")
 	return false;
 }
 
 
-function emptyForm(){
-    $("#brand-form input[name=email]").val("");
-    $("#brand-form input[name=password]").val("");
-}
 
 
 //INITIALIZATION CODE

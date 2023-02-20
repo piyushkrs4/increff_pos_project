@@ -8,17 +8,20 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Table(
+        uniqueConstraints = {@UniqueConstraint(name="barcode_uk",columnNames = {"barcode"})}
+)
 public class ProductPojo extends AbstractPojo{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+    @Column(nullable = false)
     private String barcode;
+    @Column(nullable = false)
     private Integer brandId;
+    @Column(nullable = false)
     private String name;
-    // todo -> change to primitive
-    // todo -> make barcode unique notnull notblank
-    // todo -> snakecase (naming str)
+    @Column(nullable = false)
     private Double mrp;
 
 }

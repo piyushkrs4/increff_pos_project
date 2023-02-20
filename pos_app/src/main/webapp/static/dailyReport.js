@@ -7,6 +7,8 @@ function getDailyReportUrl(){
 function filteredDailyReport(event){
 	//Set the values to update
 	var $form = $("#dailyReport-form");
+	if(!validateForm($form))
+	    return;
 	var json = toJson($form);
 	var url = getDailyReportUrl();
 	$.ajax({
@@ -58,7 +60,30 @@ function displayDailyReportList(data){
         $tbody.append(row);
         sno++;
 	}
-	pagenation();
+	pagination();
+}
+
+//async function downloadCSV() {
+//    var url = getDailyReportUrl() + "/download"
+//    const response = await fetch(url);
+//    const data = await response.text();
+//
+//    const link = document.createElement('a');
+//    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(data));
+//    link.setAttribute('download', 'daily-report.csv');
+//    link.style.display = 'none';
+//
+//    document.body.appendChild(link);
+//    link.click();
+//    document.body.removeChild(link);
+//}
+
+function setMAxDateLimit(){
+    document.getElementById("inputEndDate").min = document.getElementById("inputStartDate").value
+}
+
+function setMinDateLimit(){
+    document.getElementById("inputStartDate").max = document.getElementById("inputEndDate").value
 }
 
 function addModal(){
@@ -66,8 +91,20 @@ function addModal(){
     $('#daily-report-modal').modal('toggle');
 }
 
-function pagenation(){
-    $('#dailyReport-table').DataTable();
+var $fileName = 'Daily Report'
+
+function pagination(){
+    $('#dailyReport-table').DataTable({
+        dom: 'Bfrtip',
+        buttons : [
+            {
+                extend: 'csv',
+                title : 'Daily Report',
+                filename: $fileName,
+                text: '<i class="fa-solid fa-download"></i>',
+            }
+        ]
+    });
     $('.dataTables_length').addClass("bs-select");
 }
 
@@ -76,6 +113,8 @@ function init(){
     $('#add').click(addModal);
 	$('#get-filteredDailyReport').click(filteredDailyReport);
 	$('#refresh-data').click(getDailyReportList);
+	$('#inputStartDate').change(setMAxDateLimit);
+	$('#inputEndDate').change(setMinDateLimit);
 }
 
 $(document).ready(getDailyReportList);

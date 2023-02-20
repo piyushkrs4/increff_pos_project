@@ -10,6 +10,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -40,7 +41,6 @@ public class DbConfig {
 
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
-//		logger.info("jdbcDriver: " + jdbcDriver + ", jdbcUrl: " + jdbcUrl + ", jdbcUsername: " + jdbcUsername);
         BasicDataSource bean = new BasicDataSource();
         bean.setDriverClassName(jdbcDriver);
         bean.setUrl(jdbcUrl);
@@ -82,4 +82,10 @@ public class DbConfig {
         bean.setEntityManagerFactory(emf.getObject());
         return bean;
     }
+
+    @Bean(name = "restTemplate")
+    public RestTemplate createRestTemplate() {
+        return new RestTemplate();
+    }
+
 }

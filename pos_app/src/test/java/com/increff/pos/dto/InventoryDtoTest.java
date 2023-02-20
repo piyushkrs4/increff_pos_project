@@ -1,9 +1,9 @@
 package com.increff.pos.dto;
 
-import com.increff.pos.model.BrandForm;
-import com.increff.pos.model.InventoryData;
-import com.increff.pos.model.InventoryForm;
-import com.increff.pos.model.ProductForm;
+import com.increff.pos.model.datas.InventoryData;
+import com.increff.pos.model.forms.BrandForm;
+import com.increff.pos.model.forms.InventoryForm;
+import com.increff.pos.model.forms.ProductForm;
 import com.increff.pos.service.AbstractUnitTest;
 import com.increff.pos.service.ApiException;
 import org.junit.Rule;
@@ -42,8 +42,8 @@ public class InventoryDtoTest extends AbstractUnitTest {
         InventoryForm inventoryForm = createInventory(0);
         inventoryForm.setBarcode("barcode1");
 
-        exceptionRule.expect(ApiException.class);
-        exceptionRule.expectMessage("Product with given barcode does not exit, barcode: barcode1");
+        exceptionRule .expect(ApiException.class);
+        exceptionRule.expectMessage("Product with barcode: barcode1 does not exit!");
         inventoryDto.add(inventoryForm);
     }
 
@@ -129,7 +129,7 @@ public class InventoryDtoTest extends AbstractUnitTest {
         BrandForm brandForm = new BrandForm();
         brandForm.setBrand("brand" + id);
         brandForm.setCategory("category" + id);
-        brandDto.add(brandForm);
+        brandDto.addBrand(brandForm);
 
         ProductForm productForm = new ProductForm();
         productForm.setBarcode("barcode" + id);

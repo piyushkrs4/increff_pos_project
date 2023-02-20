@@ -1,6 +1,7 @@
 package com.increff.pdf.service;
 
 import com.increff.pdf.model.InvoiceData;
+import com.increff.pdf.util.JavaToXml;
 import com.increff.pdf.util.PdfGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class PdfService {
     @Autowired
     PdfGenerator pdfGenerator;
+    @Autowired
+    JavaToXml javaToXml;
 
     public String generatePdf(InvoiceData invoiceData) {
-        return pdfGenerator.xmlToPdfConverter(invoiceData);
+        javaToXml.javaToXmlConverter(invoiceData);
+        return pdfGenerator.xmlToPdfConverter();
     }
 
 }

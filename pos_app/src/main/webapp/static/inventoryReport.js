@@ -15,20 +15,20 @@ function getInventoryList(){
 	});
 }
 
-async function downloadCSV() {
-    var url = getInventoryReportUrl() + "/download"
-    const response = await fetch(url);
-    const data = await response.text();
-
-    const link = document.createElement('a');
-    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(data));
-    link.setAttribute('download', 'inventory-report.csv');
-    link.style.display = 'none';
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+//async function downloadCSV() {
+//    var url = getInventoryReportUrl() + "/download"
+//    const response = await fetch(url);
+//    const data = await response.text();
+//
+//    const link = document.createElement('a');
+//    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(data));
+//    link.setAttribute('download', 'inventory-report.csv');
+//    link.style.display = 'none';
+//
+//    document.body.appendChild(link);
+//    link.click();
+//    document.body.removeChild(link);
+//}
 
 
 //UI DISPLAY METHODS
@@ -48,28 +48,25 @@ function displayInventoryList(data){
 		+ '</tr>';
         $tbody.append(row);
 	}
-	pagenation();
+	pagination();
 }
 
-//function downloadCSV() {
-//    var url = getInventoryReportUrl() + "/download"
-//    $.ajax({
-//        type: "GET",
-//        url: url,
-//        success: function (data) {
-//            console.log("CSV download success");
-//        },
-//        error: function (error) {
-//            console.log("CSV download failed: ", error);
-//        },
-//        dataType: "text/csv"
-//    });
-//}
 
+var $fileName = 'Inventory Report'
 
+function pagination(){
+    $('#inventoryReport-table').DataTable({
+        dom: 'Bfrtip',
+        buttons : [
+            {
+                extend: 'csv',
+                title : 'Inventory Report',
+                filename: $fileName,
+                text: '<i class="fa-solid fa-download"></i>',
+            }
 
-function pagenation(){
-    $('#inventoryReport-table').DataTable();
+        ]
+    });
     $('.dataTables_length').addClass("bs-select");
 }
 

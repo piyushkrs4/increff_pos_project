@@ -10,14 +10,13 @@
 
 <div class="container">
 
-    <h3>Brands</h3>
 
     <!--    Top Row Buttons-->
 
-    <div id="admin-view" style="display: flex; justify-content: center">
+    <div class="supervisor-view" style="display: flex; justify-content: center; margin-top: 25px">
+        <h3 class="mr-4">Brands</h3>
+
         <button type="button" class="btn btn-primary mr-2" id="add"><i class="fa-solid fa-plus"></i></button>
-        <button type="button" class="btn btn-primary mr-2" id="refresh-data"><i class="fa-solid fa-arrows-rotate"></i>
-        </button>
         <button type="button" class="btn btn-primary" id="upload-data"><i class="fa-solid fa-upload"></i></button>
     </div>
 
@@ -36,7 +35,7 @@
                     <th scope="col">Brand</th>
                     <th scope="col">Category</th>
                     <th scope="col" style="display: none;">Id</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" class="supervisor-view">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,7 +48,8 @@
 
     <!--add brand modal-->
 
-    <div class="modal" tabindex="-1" role="dialog" id="add-brand-modal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="add-brand-modal" data-keyboard="false"
+         data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -66,7 +66,7 @@
                                 <label for="inputBrand" class="font-weight-bold">Brand</label>
 
                                 <input type="text" class="form-control" name="brand" id="inputBrand"
-                                       placeholder="ENTER BRAND" required>
+                                       placeholder="Enter Brand" maxlength="15" required>
 
                             </div>
 
@@ -75,7 +75,7 @@
                                 <label for="inputCategory" class="font-weight-bold">Category</label>
 
                                 <input type="text" class="form-control" name="category" id="inputCategory"
-                                       placeholder="ENTER CATEGORY" required>
+                                       placeholder="Enter Category" maxlength="15" required>
 
                             </div>
                         </div>
@@ -92,7 +92,8 @@
 
     <!-- brand Edit Modal -->
 
-    <div class="modal" tabindex="-1" role="dialog" id="edit-brand-modal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit-brand-modal" data-keyboard="false"
+         data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,7 +109,8 @@
                             <div class="form-group col-12 mb-3">
                                 <label for="inputBrand" class="font-weight-bold">Brand</label>
 
-                                <input type="text" class="form-control" name="brand" placeholder="ENTER BRAND" required>
+                                <input type="text" class="form-control" name="brand" placeholder="Enter Brand"
+                                       maxlength="15" required>
 
                             </div>
 
@@ -116,8 +118,8 @@
                             <div class="form-group col-12 mb-3">
                                 <label for="inputCategory" class="font-weight-bold">Category</label>
 
-                                <input type="text" class="form-control" name="category" placeholder="ENTER CATEGORY"
-                                       required>
+                                <input type="text" class="form-control" name="category" placeholder="Enter Category"
+                                       maxlength="15" required>
 
                             </div>
                             <input type="hidden" name="id">
@@ -127,14 +129,15 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="update-brand">Add</button>
+                    <button type="button" class="btn btn-primary" id="update-brand">Update</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- brand upload Modal -->
-    <div class="modal" tabindex="-1" role="dialog" id="upload-brand-modal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="upload-brand-modal" data-keyboard="false"
+         data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
 

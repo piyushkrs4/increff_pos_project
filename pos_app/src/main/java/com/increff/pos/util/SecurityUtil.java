@@ -1,14 +1,12 @@
 package com.increff.pos.util;
 
-import javax.servlet.http.HttpSession;
-
+import com.increff.pos.model.datas.UserPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-/*
-https://stackoverflow.com/questions/4664893/how-to-manually-set-an-authenticated-user-in-spring-security-springmvc
-*/
+import javax.servlet.http.HttpSession;
+
 public class SecurityUtil {
 
 	public static void createContext(HttpSession session) {

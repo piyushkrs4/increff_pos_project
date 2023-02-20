@@ -19,6 +19,9 @@ var brandCategoryMap = new Map();
 function addProduct(event){
 	//Set the values to update
 	var $form = $("#product-form");
+    if(!validateForm($form)){
+        return;
+    }
 	var json = toJson($form);
 	var url = getSupervisorProductUrl();
 	$.ajax({
@@ -40,13 +43,15 @@ function addProduct(event){
 }
 
 function updateProduct(event){
-	$('#edit-product-modal').modal('toggle');
 	//Get the ID
 	var id = $("#product-edit-form input[name=id]").val();
 	var url = getSupervisorProductUrl() + "/" + id;
 
 	//Set the values to update
 	var $form = $("#product-edit-form");
+    if(!validateForm($form)){
+        return;
+    }
 	var json = toJson($form);
 
 	$.ajax({
@@ -58,6 +63,7 @@ function updateProduct(event){
        },	   
 	   success: function(response) {
 	        successMessage("Product updated successfully")
+	        $('#edit-product-modal').modal('toggle');
 	   		getProductList();
 	   },
 	   error: handleAjaxError
@@ -97,15 +103,27 @@ function getBrandCategoryList(){
 var fileData = [];
 var errorData = [];
 var processCount = 0;
+var errorFlag = 0;
 
 
 function processData(){
 	var file = $('#productFile')[0].files[0];
+	document.getElementById("process-data").disabled = true;
 	readFileData(file, readFileDataCallback);
 }
 
 function readFileDataCallback(results){
 	fileData = results.data;
+    if(fileData.length === 0){
+        errorMessage("File is empty!")
+        return;
+    }
+    var row = fileData[0];
+    var title = Object.keys(row);
+    if(title.length!=5 || title[0]!='brand' || title[1]!='category' || title[2]!='barcode' || title[3]!='name' || title[4]!='mrp'){
+        errorMessage("Incorrect tsv format please check the sample file!");
+        return;
+    }
 	uploadRows();
 }
 
@@ -114,7 +132,14 @@ function uploadRows(){
 	updateUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
-	    successMessage("Products uploaded successfully")
+	    if(errorFlag){
+            warningMessage("There was error in uploading some data!")
+            document.getElementById("download-errors").disabled = false;
+        }
+        else{
+            successMessage("Products uploaded successfully!")
+        }
+        getProductList();
 		return;
 	}
 
@@ -124,6 +149,15 @@ function uploadRows(){
 
 	var json = JSON.stringify(row);
 	var url = getSupervisorProductUrl();
+
+	var rowObj = Object.keys(row);
+    if(rowObj.length != 5){
+        errorFlag = 1;
+        row.error = "Column length must be 5!";
+        errorData.push(row);
+        uploadRows();
+        return;
+    }
 
 	//Make ajax call
 	$.ajax({
@@ -137,7 +171,8 @@ function uploadRows(){
 	   		uploadRows();
 	   },
 	   error: function(response){
-	   		row.error=response.responseText
+	   		row.error=response.responseJSON.message
+	   		errorFlag = 1;
 	   		errorData.push(row);
 	   		uploadRows();
 	   }
@@ -167,12 +202,19 @@ function displayProductList(data){
 		+ '<td>' + e.category + '</td>'
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>'  + e.name + '</td>'
-		+ '<td>' + e.mrp + '</td>'
+		+ '<td>' + e.mrp.toFixed(2) + '</td>'
 		+ '<td style="display: none;">' + e.id + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+		+ '<td class = "supervisor-view">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	if($("meta[name=role]").attr("content") == "operator"){
+        var elements = document.getElementsByClassName('supervisor-view');
+
+        for (var i = 0; i < elements.length; i ++) {
+            elements[i].style.display = 'none';
+        }
+    }
 	pagenation();
 }
 
@@ -200,6 +242,7 @@ function displayBrand(){
     var $editDropDown = $('#editBrand');
     $dropDownBrand.empty();
     $editDropDown.empty();
+    $dropDownBrand.append('<option value="choose">Choose...</option>')
     for (let [key, value] of brandCategoryMap){
         var brandOption = '<option value="'+ key + '">' + key + '</option>'
         $dropDownBrand.append(brandOption);
@@ -210,6 +253,7 @@ function displayBrand(){
 function getCategory(value){
     var $dropDownCategory = $('#inputBrandCategory')
     $dropDownCategory.empty();
+    $dropDownCategory.append('<option value="choose">Choose...</option>')
     var category = brandCategoryMap.get(value)
     for(var i in category){
         var e = category[i]
@@ -219,8 +263,6 @@ function getCategory(value){
 }
 
 function displayEditProduct(index){
-//    var table = document.getElementById("product-table");
-//    var firstRow = table.rows[index];
     var row = document.getElementById('product-row-' + index)
     var data = {
         "brand": row.cells[1].innerHTML,
@@ -242,8 +284,11 @@ function resetUploadDialog(){
 	processCount = 0;
 	fileData = [];
 	errorData = [];
+	errorFlag = 0;
 	//Update counts	
 	updateUploadDialog();
+	document.getElementById("process-data").disabled = true;
+    document.getElementById("download-errors").disabled = true;
 }
 
 function updateUploadDialog(){
@@ -255,7 +300,22 @@ function updateUploadDialog(){
 function updateFileName(){
 	var $file = $('#productFile');
 	var fileName = $file.val();
-	$('#productFileName').html(fileName);
+	var ok = String(fileName).split(/(\\|\/)/g).pop();
+    if(ok.split('.')[1]!="tsv"){
+        errorMessage("Please select a tsv file!");
+        return;
+    }
+    $('#productFileName').html(ok);
+    $('#rowCount').html("0");
+    $('#processCount').html("0");
+    $('#errorCount').html("0");
+    processCount = 0;
+    rowCount = 0;
+    errorCount = 0;
+    errorFlag = 0;
+    errorData = [];
+    document.getElementById("download-errors").disabled = true;
+    document.getElementById("process-data").disabled = false;
 }
 
 function displayUploadData(){
@@ -274,8 +334,9 @@ function displayProduct(data){
 }
 
 function addModal(){
-    console.log("clear and working")
     document.getElementById("product-form").reset()
+    document.getElementById("inputBrandCategory").options.length = 0;
+    $('#inputBrandCategory').append('<option value="choose">Choose...</option>')
     $('#add-product-modal').modal('toggle');
 }
 
@@ -289,9 +350,6 @@ function init(){
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
     $('#productFile').on('change', updateFileName)
-    if($("meta[name=role]").attr("content") == "operator"){
-        document.getElementById('admin-view').style.display = "none";
-    }
 }
 
 $(document).ready(init);

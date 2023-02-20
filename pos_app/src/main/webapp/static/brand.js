@@ -36,13 +36,15 @@ function addBrand(event){
 }
 
 function updateBrand(event){
-	$('#edit-brand-modal').modal('toggle');
 	//Get the ID
 	var id = $("#brand-edit-form input[name=id]").val();	
 	var url = getSupervisorBrandUrl() + "/" + id;
 
 	//Set the values to update
 	var $form = $("#brand-edit-form");
+    if(!validateForm($form)){
+        return;
+    }
 	var json = toJson($form);
 
 	$.ajax({
@@ -54,7 +56,8 @@ function updateBrand(event){
        },	   
 	   success: function(response) {
 	        successMessage("Brand and category updated successfully.")
-	   		getBrandList();   
+	   		getBrandList();
+	   		$('#edit-brand-modal').modal('toggle');
 	   },
 	   error: handleAjaxError
 	});
@@ -81,24 +84,44 @@ function getBrandList(){
 var fileData = [];
 var errorData = [];
 var processCount = 0;
+var errorFlag = 0;
 
 
 function processData(){
 	var file = $('#brandFile')[0].files[0];
+	document.getElementById("process-data").disabled = true;
 	readFileData(file, readFileDataCallback);
 }
 
 function readFileDataCallback(results){
 	fileData = results.data;
+	if(fileData.length === 0){
+	    errorMessage("File is empty!")
+	    return;
+	}
+	var row = fileData[0];
+	var title = Object.keys(row);
+    if(title.length!=2 || title[0]!='brand' || title[1]!='category'){
+        errorMessage("Incorrect tsv format please check the sample file!");
+        return;
+    }
 	uploadRows();
 }
+
 
 function uploadRows(){
 	//Update progress
 	updateUploadDialog();
 	//If everything processed then return
 	if(processCount==fileData.length){
-	    successMessage("Brands and categories uploaded successfully!")
+	    if(errorFlag){
+	        warningMessage("There was error in uploading some data!")
+	        document.getElementById("download-errors").disabled = false;
+	    }
+	    else{
+	        successMessage("Brands and categories uploaded successfully!")
+	    }
+	    getBrandList();
 		return;
 	}
 	
@@ -108,6 +131,15 @@ function uploadRows(){
 	
 	var json = JSON.stringify(row);
 	var url = getSupervisorBrandUrl();
+
+    var rowObj = Object.keys(row);
+	if(rowObj.length != 2){
+        errorFlag = 1;
+        row.error = "Column length must be 2!";
+        errorData.push(row);
+        uploadRows();
+        return;
+    }
 
 	//Make ajax call
 	$.ajax({
@@ -121,7 +153,8 @@ function uploadRows(){
 	   		uploadRows();  
 	   },
 	   error: function(response){
-	   		row.error=response.responseText
+            errorFlag = 1;
+	   		row.error=response.responseJSON.message
 	   		errorData.push(row);
 	   		uploadRows();
 	   }
@@ -150,10 +183,17 @@ function displayBrandList(data){
 		+ '<td>' + e.brand + '</td>'
 		+ '<td>'  + e.category + '</td>'
 		+ '<td style="display: none;">' + e.id + '</td>'
-		+ '<td>' + buttonHtml + '</td>'
+        + '<td class = "supervisor-view">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
+	if($("meta[name=role]").attr("content") == "operator"){
+        var elements = document.getElementsByClassName('supervisor-view');
+
+        for (var i = 0; i < elements.length; i ++) {
+            elements[i].style.display = 'none';
+        }
+    }
 	pagenation();
 }
 
@@ -176,8 +216,11 @@ function resetUploadDialog(){
 	processCount = 0;
 	fileData = [];
 	errorData = [];
-	//Update counts	
+	errorFlag = 0;
+	//Update counts
 	updateUploadDialog();
+ 	document.getElementById("process-data").disabled = true;
+ 	document.getElementById("download-errors").disabled = true;
 }
 
 function updateUploadDialog(){
@@ -189,11 +232,26 @@ function updateUploadDialog(){
 function updateFileName(){
 	var $file = $('#brandFile');
 	var fileName = $file.val();
-	$('#brandFileName').html(fileName);
+	var ok = String(fileName).split(/(\\|\/)/g).pop();
+    if(ok.split('.')[1]!="tsv"){
+        errorMessage("Please select a tsv file!");
+        return;
+    }
+	$('#brandFileName').html(ok);
+	$('#rowCount').html("0");
+	$('#processCount').html("0");
+	$('#errorCount').html("0");
+	processCount = 0;
+	rowCount = 0;
+	errorCount = 0;
+	errorFlag = 0;
+	errorData = [];
+	document.getElementById("download-errors").disabled = true;
+ 	document.getElementById("process-data").disabled = false;
 }
 
 function displayUploadData(){
- 	resetUploadDialog(); 	
+ 	resetUploadDialog();
 	$('#upload-brand-modal').modal('toggle');
 }
 
@@ -229,10 +287,7 @@ function init(){
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
-    $('#brandFile').on('change', updateFileName)
-    if($("meta[name=role]").attr("content") == "operator"){
-        document.getElementById('admin-view').style.display = "none";
-    }
+    $('#brandFile').on('change', updateFileName);
 }
 
 $(document).ready(init);

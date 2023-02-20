@@ -1,10 +1,9 @@
 package com.increff.pos.dto;
 
-
-import com.increff.pos.model.BrandForm;
-import com.increff.pos.model.EditProductForm;
-import com.increff.pos.model.ProductData;
-import com.increff.pos.model.ProductForm;
+import com.increff.pos.model.datas.ProductData;
+import com.increff.pos.model.forms.BrandForm;
+import com.increff.pos.model.forms.EditProductForm;
+import com.increff.pos.model.forms.ProductForm;
 import com.increff.pos.service.AbstractUnitTest;
 import com.increff.pos.service.ApiException;
 import org.junit.Rule;
@@ -51,11 +50,11 @@ public class ProductDtoTest extends AbstractUnitTest {
         ProductForm productForm = createProduct(0);
         productDto.add(productForm);
 
-        productForm.setBrand("unknown brand");
-        productForm.setCategory("unknown category");
+        productForm.setBrand("brand");
+        productForm.setCategory("category");
 
         exceptionRule.expect(ApiException.class);
-        exceptionRule.expectMessage("Brand category pair does not exist");
+        exceptionRule.expectMessage("brand, category pair does not exist");
         productDto.add(productForm);
     }
 
@@ -153,7 +152,7 @@ public class ProductDtoTest extends AbstractUnitTest {
         BrandForm brandForm = new BrandForm();
         brandForm.setBrand("brand" + id);
         brandForm.setCategory("category" + id);
-        brandDto.add(brandForm);
+        brandDto.addBrand(brandForm);
 
         ProductForm productForm = new ProductForm();
         productForm.setBarcode("barcode" + id);
