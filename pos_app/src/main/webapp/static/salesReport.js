@@ -161,25 +161,12 @@ function getCategory(value){
 
 }
 
-//async function downloadCSV() {
-//    var url = getSalesReportUrl() + "/download"
-//    const response = await fetch(url);
-//    const data = await response.text();
-//
-//    const link = document.createElement('a');
-//    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(data));
-//    link.setAttribute('download', 'sales-report.csv');
-//    link.style.display = 'none';
-//
-//    document.body.appendChild(link);
-//    link.click();
-//    document.body.removeChild(link);
-//}
-
 function addModal(){
     document.getElementById("salesReport-form").reset()
     document.getElementById("inputBrandCategory").options.length = 0;
     $('#inputBrandCategory').append('<option value="all">All</option>')
+    document.getElementById("inputEndDate").min = "";
+    document.getElementById("inputStartDate").max = "";
     $('#sales-report-modal').modal('toggle');
 }
 

@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PdfService {
     @Autowired
-    PdfGenerator pdfGenerator;
+    private PdfGenerator pdfGenerator;
     @Autowired
-    JavaToXml javaToXml;
+    private JavaToXml javaToXml;
 
     public String generatePdf(InvoiceData invoiceData) {
         javaToXml.javaToXmlConverter(invoiceData);

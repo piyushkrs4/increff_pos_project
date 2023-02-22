@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@Transactional(rollbackFor = ApiException.class)
+@Transactional(rollbackFor = Exception.class)
 public class InventoryService {
     @Autowired
     private InventoryDao inventoryDao;

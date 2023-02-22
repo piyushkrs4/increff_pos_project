@@ -18,7 +18,7 @@ import static com.increff.pos.util.GenericFunctionsUtil.addToErrorList;
 import static com.increff.pos.util.GenericFunctionsUtil.throwApiErrorsList;
 
 @Service
-@Transactional(rollbackFor = ApiException.class)
+@Transactional(rollbackFor = Exception.class)
 public class OrderFlow {
 
     @Autowired
@@ -28,7 +28,6 @@ public class OrderFlow {
     @Autowired
     private InventoryService inventoryService;
 
-    @Transactional(rollbackFor = ApiException.class)
     public Integer addOrder(List<OrderItemPojo> orderItemPojoList, List<String> barcodeList) throws ApiException {
         if (orderItemPojoList.isEmpty())
             throw new ApiException("Add at least one item to order!");
@@ -60,7 +59,6 @@ public class OrderFlow {
         return orderId;
     }
 
-    @Transactional(rollbackFor = ApiException.class)
     public void updateOrder(Integer orderId, List<OrderItemPojo> orderItemPojoList, List<String> barcodeList) throws ApiException {
         StringBuilder errors = new StringBuilder();
         if (orderItemPojoList.isEmpty())

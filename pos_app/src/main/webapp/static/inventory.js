@@ -181,17 +181,11 @@ function displayInventoryList(data){
 		+ '<td>'  + e.productName + '</td>'
 		+ '<td>'  + e.quantity + '</td>'
 		+ '<td style="display: none;">' + e.id + '</td>'
-		+ '<td class = "supervisor-view">' + buttonHtml + '</td>'
+		+ '<td class = "supervisor-view" style="display: none;">' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
-	if($("meta[name=role]").attr("content") == "operator"){
-        var elements = document.getElementsByClassName('supervisor-view');
-
-        for (var i = 0; i < elements.length; i ++) {
-            elements[i].style.display = 'none';
-        }
-    }
+	supervisorView();
 	pagenation();
 }
 
@@ -288,9 +282,6 @@ function init(){
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
     $('#inventoryFile').on('change', updateFileName)
-    if($("meta[name=role]").attr("content") == "operator"){
-        document.getElementById('admin-view').style.display = "none";
-    }
 }
 
 $(document).ready(init);

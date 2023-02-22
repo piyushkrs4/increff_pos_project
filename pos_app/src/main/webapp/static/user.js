@@ -94,7 +94,6 @@ function deleteUser(id){
 
 function displayUserList(data){
     $('#user-table').DataTable().destroy();
-//	console.log('Printing user data');
 	var $tbody = $('#user-table').find('tbody');
 	$tbody.empty();
 	var sno = 1;

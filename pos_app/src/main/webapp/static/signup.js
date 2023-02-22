@@ -16,8 +16,6 @@ function addUser(event){
 	    return;
 	var json = toJson($form);
 	var url = getSignupUrl();
-	console.log(url);
-	console.log(getLoginUiUrl());
 	$.ajax({
 	   url: url,
 	   type: 'POST',

@@ -1,12 +1,12 @@
 package com.increff.pos.util;
 
-import com.increff.pos.model.datas.DailyReportData;
-import com.increff.pos.model.datas.InventoryData;
-import com.increff.pos.model.datas.OrderData;
-import com.increff.pos.model.datas.ProductData;
+import com.increff.pos.model.datas.*;
 import com.increff.pos.pojo.*;
 import com.increff.pos.service.ApiException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -72,5 +72,19 @@ public class Converter {
             dailyReportDataList.add(dailyReportData);
         }
         return dailyReportDataList;
+    }
+
+    public static Authentication convertUserPojoToAuthentication(UserPojo userPojo) {
+        // Create principal
+        UserPrincipal principal = new UserPrincipal();
+        principal.setEmail(userPojo.getEmail());
+        principal.setId(userPojo.getId());
+        principal.setRole(userPojo.getRole());
+
+        ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(userPojo.getRole()));
+
+        return new UsernamePasswordAuthenticationToken(principal, null,
+                authorities);
     }
 }

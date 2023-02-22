@@ -24,28 +24,14 @@
                                     <fo:table-cell padding-left="5pt">
                                     <fo:block>
                                         <fo:external-graphic  src="url(file:///D:/WorkSpace/IncreffProjects/pdf_generator/src/main/resources/logo.png)" content-height="scale-to-fit" height="50px"  content-width="2.00in" scaling="non-uniform"/>
-<!--                                        D:\WorkSpace\IncreffProjects\pdf_generator\src\main\resources\name.xml-->
                                     </fo:block>
                                     </fo:table-cell>
-<!--                                    <fo:table-cell padding-left="5pt">-->
-<!--                                        <fo:block>-->
-<!--                                            Increff-->
-<!--                                        </fo:block>-->
-<!--                                    </fo:table-cell>-->
                                     <fo:table-cell padding-top="20pt" padding-right="10pt" font-weight = "bold">
                                         <fo:block text-align="right">
                                             INVOICE
                                         </fo:block>
                                     </fo:table-cell>
                                 </fo:table-row>
-<!--                                <fo:table-row>-->
-<!--&lt;!&ndash;                                    <fo:table-cell padding-left="5pt" padding-top="5pt">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <fo:block>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            c/o Looney tunes&#x2028;&ndash;&gt;-->
-<!--&lt;!&ndash;                                            Toontown&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </fo:block>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </fo:table-cell>&ndash;&gt;-->
-<!--                                </fo:table-row>-->
                             </fo:table-body>
                         </fo:table>
                     </fo:block>
@@ -57,9 +43,6 @@
                         </fo:block>
                     </fo:block>
                 </fo:static-content>
-<!--                <fo:flow flow-name="xsl-region-body" line-height="20pt">-->
-<!--                    <xsl:apply-templates />-->
-<!--                </fo:flow>-->
                 <fo:flow flow-name="xsl-region-body" line-height="20pt">
                     <fo:block><xsl:apply-templates /></fo:block>
                 </fo:flow>
@@ -71,7 +54,6 @@
         <fo:block space-before="120pt" width="17cm" >
             <fo:table>
                 <fo:table-column column-width="11.5cm"/>
-<!--                <fo:table-column column-width="5cm"/>-->
                 <fo:table-column column-width="3cm"/>
                 <fo:table-column column-width="3cm"/>
                 <fo:table-body>
@@ -85,14 +67,6 @@
                                 <xsl:value-of select="./city"></xsl:value-of>&#x2028;
                             </fo:block>
                         </fo:table-cell>
-<!--                        <fo:table-cell>-->
-<!--                            <fo:block>-->
-<!--                                <fo:inline font-weight="bold">Ship To</fo:inline>-->
-<!--                                <xsl:call-template name="address">-->
-<!--                                    <xsl:with-param name="address" select="./address[@type='shipto']"></xsl:with-param>-->
-<!--                                </xsl:call-template>-->
-<!--                            </fo:block>-->
-<!--                        </fo:table-cell>-->
                         <fo:table-cell>
                             <fo:block text-align="left">
                                 <fo:inline font-weight="bold">Order No.</fo:inline>&#x2028;
@@ -145,26 +119,6 @@
                 </fo:table-header>
                 <fo:table-body>
                     <xsl:apply-templates select="lineitems/lineitem"></xsl:apply-templates>
-<!--                    <fo:table-row>-->
-<!--                        <fo:table-cell number-columns-spanned="5" text-align="right" padding-right="3pt">-->
-<!--                            <fo:block>Subtotal</fo:block>-->
-<!--                        </fo:table-cell>-->
-<!--                        <fo:table-cell  text-align="right" padding-right="3pt" border-left="1px solid #b8b6b6" border-right="1px solid #b8b6b6" >-->
-<!--                            <fo:block>-->
-<!--                                <xsl:value-of select="subtotal" />-->
-<!--                            </fo:block>-->
-<!--                        </fo:table-cell>-->
-<!--                    </fo:table-row>-->
-<!--                    <fo:table-row>-->
-<!--                        <fo:table-cell number-columns-spanned="5" text-align="right" padding-right="3pt">-->
-<!--                            <fo:block>Sales tax 5%</fo:block>-->
-<!--                        </fo:table-cell>-->
-<!--                        <fo:table-cell  text-align="right" padding-right="3pt" border-left="1px solid #b8b6b6" border-right="1px solid #b8b6b6" >-->
-<!--                            <fo:block>-->
-<!--                                <xsl:value-of select="tax" />-->
-<!--                            </fo:block>-->
-<!--                        </fo:table-cell>-->
-<!--                    </fo:table-row>-->
                     <fo:table-row font-weight="bold">
                         <fo:table-cell number-columns-spanned="5" text-align="right" padding-right="3pt">
                             <fo:block>Total</fo:block>

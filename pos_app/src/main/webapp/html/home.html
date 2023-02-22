@@ -10,37 +10,35 @@
 
 <div class="container">
 
-    <h3>Home</h3>
-
     <!-- Top row with form-->
     <div class="row">
 
         <div class="col-2">
             <a th:href="@{/ui/brands}" title="Brand"> <i class="fas fa-b"></i> </a><br>
-            <a th:href="@{/ui/brands}" class = "sub">Brands</a>
+            <a th:href="@{/ui/brands}" class="sub">Brands</a>
         </div>
 
         <div class="col-2">
             <a th:href="@{/ui/products}" title="product"> <i class="fas fa-barcode"></i> </a><br>
-            <a th:href="@{/ui/products}" class = "sub">Products</a>
+            <a th:href="@{/ui/products}" class="sub">Products</a>
         </div>
 
         <div class="col-2">
             <a th:href="@{/ui/inventories}" title="inventory"> <i class="fas fa-warehouse"></i> </a><br>
-            <a th:href="@{/ui/inventories}" class = "sub">Inventories</a>
+            <a th:href="@{/ui/inventories}" class="sub">Inventories</a>
         </div>
 
         <div class="col-2">
             <a th:href="@{/ui/orders}" title="order"> <i class="fas fa-cart-shopping"></i> </a><br>
-            <a th:href="@{/ui/orders}" class = "sub">Orders</a>
+            <a th:href="@{/ui/orders}" class="sub">Orders</a>
         </div>
 
-        <div class="col-2 supervisor-view">
-            <a th:href="@{/ui/users}" title="Admin"> <i class="fas fa-cog"></i> </a><br>
-            <a th:href="@{/ui/users}" class = "sub">Admin</a>
+        <div class="col-2 supervisor-view" style="display: none;">
+            <a th:href="@{/ui/users}" title="Admin"> <i class="fas fa-cog"></i> </a>
+            <br>
+            <a th:href="@{/ui/users}" class="sub">Admin</a>
         </div>
     </div>
-    <div th:replace="snippets.html :: name_toast"></div>
 
 
 </div> <!-- Container end-->

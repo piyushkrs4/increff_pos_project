@@ -25,13 +25,12 @@ import static com.increff.pos.util.ValidatorUtil.validateDates;
 
 @Component
 public class DailyReportDto {
-    private static final String SCHEDULER_TIME = "0 36 11 * * *";
+    private static final String SCHEDULER_TIME = "0 55 10 * * *";
     private static final Logger logger = Logger.getLogger(DailyReportDto.class);
     @Autowired
     private DailyReportService dailyReportService;
     @Autowired
     private OrderService orderService;
-
 
     public List<DailyReportData> getAll() throws ApiException {
         return convertDailyReportPojoToDailyReportData(dailyReportService.getAll());
@@ -46,6 +45,7 @@ public class DailyReportDto {
 
     @Scheduled(cron = SCHEDULER_TIME)
     public void dailyReportScheduled() {
+        //currentDateTime gets the last day date for which daily report has to be generated
         ZonedDateTime currentDateTime = ZonedDateTime.now().minusDays(1);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT_YMD);
         String lastDayDate = currentDateTime.format(dateTimeFormatter);
@@ -58,6 +58,7 @@ public class DailyReportDto {
     }
 
     public void generateDailyReport(ZonedDateTime startDateTime, ZonedDateTime endDateTime) {
+        //orderPojoList stores all the orders which were placed and invoice was created between startDateTime and endDateTime
         List<OrderPojo> orderPojoList = orderService.getPlacedOrdersFilteredByDate(startDateTime, endDateTime);
         DailyReportPojo dailyReportPojo = new DailyReportPojo();
         dailyReportPojo.setReportDate(startDateTime);

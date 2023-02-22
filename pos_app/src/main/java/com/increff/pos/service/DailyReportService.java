@@ -14,7 +14,7 @@ import static com.increff.pos.util.DateTimeFormat.END_TIME;
 import static com.increff.pos.util.DateTimeFormat.START_TIME;
 
 @Service
-@Transactional(rollbackFor = ApiException.class)
+@Transactional(rollbackFor = Exception.class)
 public class DailyReportService {
     @Autowired
     private DailyReportDao dailyReportDao;

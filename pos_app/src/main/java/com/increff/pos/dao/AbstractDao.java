@@ -8,20 +8,20 @@ import java.util.List;
 
 public abstract class AbstractDao {
 	@PersistenceContext
-	private EntityManager em;
+	private EntityManager entityManager;
 	protected <T> T getSingle(TypedQuery<T> query) {
 		return query.getResultList().stream().findFirst().orElse(null);
 	}
 
 	protected <T> TypedQuery<T> getQuery(String jpql, Class<T> clazz) {
-		return em.createQuery(jpql, clazz);
+		return entityManager.createQuery(jpql, clazz);
 	}
 
 	protected EntityManager em() {
-		return em;
+		return entityManager;
 	}
 	public <T> void insert(T p){
-		em.persist(p);
+		entityManager.persist(p);
 	}
 	public <T> T select(Integer id, Class<T> clazz) {
 		String select_id = "select p from " + clazz.getName() + " p where id=:id";
@@ -37,7 +37,7 @@ public abstract class AbstractDao {
 	}
 	public <T> Integer delete(Integer id, Class<T> clazz) {
 		String delete_id = "delete from " + clazz.getName() + " p where id=:id";
-		Query query = em.createQuery(delete_id);
+		Query query = entityManager.createQuery(delete_id);
 		query.setParameter("id", id);
 		return query.executeUpdate();
 	}

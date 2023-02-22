@@ -28,16 +28,11 @@ body {
     font-size: 4rem;
 }
 
-#toast
-{
-  position: fixed !important;
-  top: 20px;
-  right:20px;
-  z-index: 999999;
-  overflow: visible !important;
-}
-
 .sub{
     font-size: 1.3em;
     color: #00308F;
+}
+
+#navbarNav .active {
+        font-weight: bold;
 }

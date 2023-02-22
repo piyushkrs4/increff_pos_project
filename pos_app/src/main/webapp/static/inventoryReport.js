@@ -15,22 +15,6 @@ function getInventoryList(){
 	});
 }
 
-//async function downloadCSV() {
-//    var url = getInventoryReportUrl() + "/download"
-//    const response = await fetch(url);
-//    const data = await response.text();
-//
-//    const link = document.createElement('a');
-//    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(data));
-//    link.setAttribute('download', 'inventory-report.csv');
-//    link.style.display = 'none';
-//
-//    document.body.appendChild(link);
-//    link.click();
-//    document.body.removeChild(link);
-//}
-
-
 //UI DISPLAY METHODS
 
 function displayInventoryList(data){

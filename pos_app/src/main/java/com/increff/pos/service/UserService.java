@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class UserService {
     @Autowired
     private UserDao userDao;

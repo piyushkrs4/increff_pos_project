@@ -11,8 +11,7 @@
 <div class="container">
 
 
-    <div id="admin-view" style="display: flex; justify-content: center; margin-top: 25px">
-        <h3 class="mr-4">Orders</h3>
+    <div id="admin-view" style="display: flex; justify-content: center; margin-top: 25px;">
 
         <button type="button" class="btn btn-primary btn-md mr-3" id="open-cart"><i
                 class="fa-solid fa-cart-plus"></i></button>
@@ -112,23 +111,18 @@
 
                                 </tbody>
                             </table>
-                            <!--	 <div id = "change-button">-->
-                            <!--	 </div>-->
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <!--                        <h4 id="total-div" class="mr-auto text-danger"><span-->
-                        <!--                                class="font-weight-bold">Total:  </span><span id="cartItemTotal">0</span></h4>-->
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-success" id="place-order">Create Order</button>
                     </div>
 
                     &nbsp;
                 </div>
-                <!--				test end-->
             </div>
         </div>
-        <!--		<div th:replace="snippets.html :: name_toast"></div>-->
+
     </div>
 
     <!--view-order modal-->
@@ -198,14 +192,9 @@
 
                                 </tbody>
                             </table>
-                            <!--	 <div id = "change-button">-->
-                            <!--                        <button type="button" class="btn btn-success" id="update-order">Update Order</button>-->
-                            <!--	 </div>-->
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <!--                        <h4 id="order-total-div" class="mr-auto text-danger"><span-->
-                        <!--                                class="font-weight-bold">Total:  </span><span id="orderItemTotal">0</span></h4>-->
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-success" id="update-order">Update Order</button>
                     </div>
@@ -231,23 +220,23 @@
 
                     <div class="col-12">
                         <div>
-                            <div style="display:inline-block;float:left">
-                                <a style="font-weight:bold">Order Code: </a>
+                            <div style="display:inline-block;float:left;">
+                                <a style="font-weight:bold;">Order Code: </a>
                                 <a id="inputOrderCode"></a>
                             </div>
-                            <div style="display:inline-block;float:right">
-                                <a style="font-weight:bold; text-align:right">Invoice Date: </a>
+                            <div style="display:inline-block;float:right;">
+                                <a style="font-weight:bold; text-align:right;">Invoice Date: </a>
                                 <a id="inputInvoiceDate"></a>
                             </div>
                         </div>
                         <br>
                         <div>
-                            <div style="display:inline-block;float:left">
-                                <a style="font-weight:bold">Invoice Number: </a>
+                            <div style="display:inline-block;float:left;">
+                                <a style="font-weight:bold;">Invoice Number: </a>
                                 <a id="inputInvoiceNumber"></a>
                             </div>
-                            <div style="display:inline-block;float:right">
-                                <a style="font-weight:bold; text-align:right">Invoice Time: </a>
+                            <div style="display:inline-block;float:right;">
+                                <a style="font-weight:bold; text-align:right;">Invoice Time: </a>
                                 <a id="inputInvoiceTime"></a>
                             </div>
                         </div>
@@ -284,8 +273,6 @@
 
 
     <!--	edit order modal-->
-
-    <div th:replace="snippets.html :: name_toast"></div>
 
 </div> <!-- Container end-->
 

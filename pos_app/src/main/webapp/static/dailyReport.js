@@ -63,21 +63,6 @@ function displayDailyReportList(data){
 	pagination();
 }
 
-//async function downloadCSV() {
-//    var url = getDailyReportUrl() + "/download"
-//    const response = await fetch(url);
-//    const data = await response.text();
-//
-//    const link = document.createElement('a');
-//    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(data));
-//    link.setAttribute('download', 'daily-report.csv');
-//    link.style.display = 'none';
-//
-//    document.body.appendChild(link);
-//    link.click();
-//    document.body.removeChild(link);
-//}
-
 function setMAxDateLimit(){
     document.getElementById("inputEndDate").min = document.getElementById("inputStartDate").value
 }
@@ -87,7 +72,9 @@ function setMinDateLimit(){
 }
 
 function addModal(){
-    document.getElementById("dailyReport-form").reset()
+    document.getElementById("dailyReport-form").reset();
+    document.getElementById("inputEndDate").min = "";
+    document.getElementById("inputStartDate").max = "";
     $('#daily-report-modal').modal('toggle');
 }
 

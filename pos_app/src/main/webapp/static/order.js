@@ -221,7 +221,7 @@ function displayCartItems(){
 	else
 	    document.getElementById('place-order').disabled=false;
 	if(total > 0)
-	    $tbody.append('<tr style="font-weight: bold; background-color: LemonChiffon"><td colspan="3"></td><td>'+ 'Total:' +'</td><td>'+roundUpTo2DecimalPlaces(total).toFixed(2)+'</td><td></td></tr>')
+	    $tbody.append('<tr style="font-weight: bold; background-color: LemonChiffon;"><td colspan="3"></td><td>'+ 'Total:' +'</td><td>'+roundUpTo2DecimalPlaces(total).toFixed(2)+'</td><td></td></tr>')
 }
 
 function editItem(id){
@@ -308,7 +308,7 @@ function displayOrderItems(){
 	else
 	    document.getElementById('update-order').disabled=false;
 	if(total > 0)
-	    $tbody.append('<tr style="font-weight: bold; background-color: LemonChiffon"><td colspan="3"></td><td>'+ 'Total:' +'</td><td>'+roundUpTo2DecimalPlaces(total).toFixed(2)+'</td><td></td></tr>')
+	    $tbody.append('<tr style="font-weight: bold; background-color: LemonChiffon;"><td colspan="3"></td><td>'+ 'Total:' +'</td><td>'+roundUpTo2DecimalPlaces(total).toFixed(2)+'</td><td></td></tr>')
 }
 
 function displayPlacedOrderItems(data){
@@ -338,7 +338,7 @@ function displayPlacedOrderItems(data){
         + '</tr>';
         $tbody.append(row);
 	}
-    $tbody.append('<tr style="font-weight: bold; background-color: LemonChiffon"><td colspan="4"></td><td>'+ 'Total:' +'</td><td>'+data.total.toFixed(2)+'</td></tr>')
+    $tbody.append('<tr style="font-weight: bold; background-color: LemonChiffon;"><td colspan="4"></td><td>'+ 'Total:' +'</td><td>'+data.total.toFixed(2)+'</td></tr>')
 }
 
 function deleteCartItem(barcode){

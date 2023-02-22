@@ -8461,3 +8461,115 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2023-02-20 15:45:11 INFO  SecurityConfig:37 - Configuration complete
 2023-02-20 17:19:20 INFO  SecurityConfig:37 - Configuration complete
 2023-02-20 17:23:01 INFO  SecurityConfig:37 - Configuration complete
+2023-02-20 23:06:41 INFO  SecurityConfig:37 - Configuration complete
+2023-02-20 23:20:31 INFO  SecurityConfig:37 - Configuration complete
+2023-02-20 23:23:38 INFO  SecurityConfig:37 - Configuration complete
+2023-02-20 23:32:36 INFO  SecurityConfig:37 - Configuration complete
+2023-02-20 23:54:41 INFO  SecurityConfig:37 - Configuration complete
+2023-02-20 23:57:00 INFO  PdfGeneratorDto:65 - PdfFiles folder created successfully
+2023-02-21 00:01:04 INFO  PdfGeneratorDto:65 - PdfFiles folder created successfully
+2023-02-21 10:15:21 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 10:30:31 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 10:34:29 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 10:35:47 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 10:36:27 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 10:47:05 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 10:54:29 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 10:55:00 INFO  DailyReportDto:79 - Daily Report generated successfully
+2023-02-21 11:17:24 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 11:20:10 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 11:24:03 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 11:51:05 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:06:22 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:09:31 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:17:05 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:18:57 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:22:37 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:24:00 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:24:38 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:25:36 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:29:12 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:32:47 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:39:44 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:44:00 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 12:48:17 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 13:43:02 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 13:45:10 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 13:47:42 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 13:49:01 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 13:52:30 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 14:47:43 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 14:50:38 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 14:51:59 INFO  SecurityConfig:37 - Configuration complete
+2023-02-21 14:54:22 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 10:49:20 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 10:55:01 INFO  DailyReportDto:80 - Daily Report generated successfully
+2023-02-22 11:05:32 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 11:23:20 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 11:26:17 INFO  PdfGeneratorDto:65 - PdfFiles folder created successfully
+2023-02-22 11:38:49 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 14:01:00 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 14:08:16 INFO  PdfGeneratorDto:65 - PdfFiles folder created successfully
+2023-02-22 16:08:33 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 16:20:47 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 17:16:58 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 17:19:00 WARN  AnnotationConfigWebApplicationContext:550 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.increff.pos.spring.SpringConfig]; nested exception is java.io.FileNotFoundException: class path resource [com/increff/pos/dao/AbstractDao.class] cannot be opened because it does not exist
+2023-02-22 17:19:00 ERROR DispatcherServlet:502 - Context initialization failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.increff.pos.spring.SpringConfig]; nested exception is java.io.FileNotFoundException: class path resource [com/increff/pos/dao/AbstractDao.class] cannot be opened because it does not exist
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:180)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:308)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:228)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:270)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:93)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:686)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:524)
+	at org.springframework.web.servlet.FrameworkServlet.configureAndRefreshWebApplicationContext(FrameworkServlet.java:668)
+	at org.springframework.web.servlet.FrameworkServlet.initWebApplicationContext(FrameworkServlet.java:540)
+	at org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:494)
+	at org.springframework.web.servlet.HttpServletBean.init(HttpServletBean.java:136)
+	at javax.servlet.GenericServlet.init(GenericServlet.java:244)
+	at org.eclipse.jetty.servlet.ServletHolder.initServlet(ServletHolder.java:599)
+	at org.eclipse.jetty.servlet.ServletHolder.initialize(ServletHolder.java:425)
+	at org.eclipse.jetty.servlet.ServletHandler.lambda$initialize$0(ServletHandler.java:751)
+	at java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:352)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:483)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:312)
+	at java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:743)
+	at java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:742)
+	at java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:580)
+	at org.eclipse.jetty.servlet.ServletHandler.initialize(ServletHandler.java:744)
+	at org.eclipse.jetty.servlet.ServletContextHandler.startContext(ServletContextHandler.java:361)
+	at org.eclipse.jetty.webapp.WebAppContext.startWebapp(WebAppContext.java:1443)
+	at org.eclipse.jetty.maven.plugin.JettyWebAppContext.startWebapp(JettyWebAppContext.java:328)
+	at org.eclipse.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1407)
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:821)
+	at org.eclipse.jetty.servlet.ServletContextHandler.doStart(ServletContextHandler.java:276)
+	at org.eclipse.jetty.webapp.WebAppContext.doStart(WebAppContext.java:524)
+	at org.eclipse.jetty.maven.plugin.JettyWebAppContext.doStart(JettyWebAppContext.java:397)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:72)
+	at org.eclipse.jetty.maven.plugin.JettyRunMojo.restartWebApp(JettyRunMojo.java:513)
+	at org.eclipse.jetty.maven.plugin.JettyRunMojo$1.onPathWatchEvents(JettyRunMojo.java:357)
+	at org.eclipse.jetty.util.PathWatcher.notifyEvents(PathWatcher.java:1342)
+	at org.eclipse.jetty.util.PathWatcher.run(PathWatcher.java:1169)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.io.FileNotFoundException: class path resource [com/increff/pos/dao/AbstractDao.class] cannot be opened because it does not exist
+	at org.springframework.core.io.ClassPathResource.getInputStream(ClassPathResource.java:172)
+	at org.springframework.core.type.classreading.SimpleMetadataReader.<init>(SimpleMetadataReader.java:50)
+	at org.springframework.core.type.classreading.SimpleMetadataReaderFactory.getMetadataReader(SimpleMetadataReaderFactory.java:98)
+	at org.springframework.core.type.classreading.CachingMetadataReaderFactory.getMetadataReader(CachingMetadataReaderFactory.java:102)
+	at org.springframework.core.type.classreading.SimpleMetadataReaderFactory.getMetadataReader(SimpleMetadataReaderFactory.java:93)
+	at org.springframework.context.annotation.ConfigurationClassParser.asSourceClass(ConfigurationClassParser.java:671)
+	at org.springframework.context.annotation.ConfigurationClassParser$SourceClass.getSuperClass(ConfigurationClassParser.java:835)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:308)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:230)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:189)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:272)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:230)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:166)
+	... 36 more
+2023-02-22 17:48:40 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 17:50:06 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 17:52:20 INFO  SecurityConfig:37 - Configuration complete
+2023-02-22 17:58:22 INFO  SecurityConfig:37 - Configuration complete

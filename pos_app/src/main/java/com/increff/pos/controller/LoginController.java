@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,33 +26,34 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static com.increff.pos.util.Converter.convertUserPojoToAuthentication;
 import static com.increff.pos.util.NormalizerUtil.normalize;
 import static com.increff.pos.util.ValidatorUtil.validate;
 
-@Controller
+@RestController
 @RequestMapping(path = "/session")
 public class LoginController {
 
     @Autowired
     private UserDto userDto;
     @Autowired
-    private InfoData info;
+    private InfoData infoData;
 
     @ApiOperation(value = "Logs in a user")
     @RequestMapping(path = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView login(HttpServletRequest httpServletRequest, LoginForm f) throws ApiException, IllegalAccessException {
-        validate(f);
-        normalize(f);
-        UserPojo p = userDto.getUsingEmail(f.getEmail());
-        boolean authenticated = (p != null && Objects.equals(p.getPassword(), f.getPassword()));
+    public ModelAndView login(HttpServletRequest httpServletRequest, LoginForm loginForm) throws ApiException, IllegalAccessException {
+        validate(loginForm);
+        normalize(loginForm.getEmail());
+        UserPojo userPojo = userDto.getUsingEmail(loginForm.getEmail());
+        boolean authenticated = (userPojo != null && Objects.equals(userPojo.getPassword(), loginForm.getPassword()));
         if (!authenticated) {
-            info.setMessage("Invalid username or password");
-            info.setStatus(false);
+            infoData.setMessage("Invalid username or password");
+            infoData.setStatus(false);
             return new ModelAndView("redirect:/site/login");
         }
 
         // Create authentication object
-        Authentication authentication = convert(p);
+        Authentication authentication = convertUserPojoToAuthentication(userPojo);
         // Create new session
         HttpSession session = httpServletRequest.getSession(true);
         // Attach Spring SecurityContext to this new session
@@ -74,20 +76,6 @@ public class LoginController {
     public ModelAndView signup(@RequestBody LoginForm loginForm) throws ApiException, IllegalAccessException {
         userDto.addUsingSingUp(loginForm);
         return new ModelAndView("redirect:/site/logout");
-    }
-
-    private static Authentication convert(UserPojo userPojo) {
-        // Create principal
-        UserPrincipal principal = new UserPrincipal();
-        principal.setEmail(userPojo.getEmail());
-        principal.setId(userPojo.getId());
-        principal.setRole(userPojo.getRole());
-
-        ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(userPojo.getRole()));
-
-        return new UsernamePasswordAuthenticationToken(principal, null,
-                authorities);
     }
 
 }

@@ -12,11 +12,12 @@
 
     <!-- Top row with form-->
 
-    <div class="supervisor-view" style="display: flex; justify-content: center; margin-top: 25px">
-        <h3 class="mr-4">Inventories</h3>
+    <div style="display: flex; justify-content: center; margin-top: 25px;">
 
-        <button type="button" class="btn btn-primary mr-2" id="add"><i class="fa-solid fa-plus"></i></button>
-        <button type="button" class="btn btn-primary" id="upload-data"><i class="fa-solid fa-upload"></i></button>
+        <div class="supervisor-view" style="display: none">
+            <button type="button" class="btn btn-primary mr-2" id="add"><i class="fa-solid fa-plus"></i></button>
+            <button type="button" class="btn btn-primary" id="upload-data"><i class="fa-solid fa-upload"></i></button>
+        </div>
     </div>
 
     <!-- Blank Row -->
@@ -35,7 +36,7 @@
                     <th scope="col">Product Name</th>
                     <th scope="col">Quantity</th>
                     <th scope="col" style="display: none;">Id</th>
-                    <th class="supervisor-view" scope="col">Action</th>
+                    <th class="supervisor-view" scope="col" style="display: none;">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -114,12 +115,18 @@
 
                             </div>
 
+                            <div class="form-group col-12 mb-3">
+                                <label for="inputBarcode" class="font-weight-bold">Product Name</label>
+
+                                <input type="text" class="form-control" name="productName" readonly>
+
+                            </div>
 
                             <div class="form-group col-12 mb-3">
                                 <label for="inputQuantity" class="font-weight-bold">Quantity</label>
 
                                 <input type="number" step="1" class="form-control" name="quantity"
-                                       placeholder="Enter Quantity" MIN="0" MAX="2147483647" required>
+                                       placeholder="Enter Quantity" MIN="1" MAX="2147483647" required>
 
                             </div>
 
@@ -152,7 +159,7 @@
 
                 <div class="modal-body">
                     <div class="inventory-file">
-                        <input type="file" class="custom-file-input" id="inventoryFile">
+                        <input type="file" class="custom-file-input" id="inventoryFile" accept=".tsv">
                         <label class="custom-file-label" for="inventoryFile" id="inventoryFileName">Choose file</label>
                     </div>
                     <a th:href="@{/sample/inventory.tsv}" target="_blank">Download Sample</a>
@@ -170,7 +177,7 @@
             </div>
         </div>
     </div>
-    <div th:replace="snippets.html :: name_toast"></div>
+<!--    <div th:replace="snippets.html :: name_toast"></div>-->
 </div> <!-- Container end-->
 
 <footer th:replace="snippets.html :: name_footer"></footer>

@@ -34,7 +34,6 @@ public class ControllerConfig extends WebMvcConfigurerAdapter {
 
 	public static final String PACKAGE_CONTROLLER = "com.increff.pos.controller";
 
-
 	private ApplicationContext applicationContext;
 
 	public void setApplicationContext(ApplicationContext applicationContext) {

@@ -1,8 +1,6 @@
-
 //HELPER METHOD
 function toJson($form){
     var serialized = $form.serializeArray();
-    console.log(serialized);
     var s = '';
     var data = {};
     for(s in serialized){
@@ -12,37 +10,45 @@ function toJson($form){
     return json;
 }
 
-function replace(m){
-console.log(m);
-    return m.replace(/\n/g, "<br />");
+function replace(message){
+    return message.replace(/\n/g, "<br />");
 }
 
 function handleAjaxError(response){
     var message = JSON.parse(response.responseText);
-    document.getElementById('toast').classList.remove('bg-warning','bg-danger','bg-success');
-    document.getElementById('toast').classList.add('bg-danger');
-    document.getElementById('toast-message').innerHTML=replace(message.message);
-    $(".toast").toast('show');
-}
-
-function errorMessage(message){
-    document.getElementById('toast').classList.remove('bg-warning','bg-danger','bg-success');
-    document.getElementById('toast').classList.add('bg-danger');
-    document.getElementById('toast-message').innerHTML=message;
-    $(".toast").toast('show');
-}
-
-function warningMessage(message){
-   document.getElementById('toast').style.backgroundColor = "#e4a11b";
-   document.getElementById('toast-message').innerHTML = replace(message);
-   $('.toast').toast('show');
+    toastr.error(replace(message.message), "Error: ", {
+        "closeButton": true,
+        "timeOut": "0",
+        "extendedTimeOut": "0",
+        "preventDuplicates": true,
+        "newestOnTop": true,
+    });
 }
 
 function successMessage(message){
-    document.getElementById('toast').classList.remove('bg-warning','bg-danger','bg-success');
-    document.getElementById('toast').classList.add('bg-success');
-    document.getElementById('toast-message').innerHTML=message;
-    $(".toast").toast('show');
+    toastr.success(message, "Success: ", {
+        "progressBar": true,
+        "preventDuplicates": true,
+        "newestOnTop": true,
+    });
+}
+
+function warningMessage(message){
+    toastr.warning(message, "Warning: ", {
+        "progressBar": true,
+        "preventDuplicates": true,
+        "newestOnTop": true,
+    });
+}
+
+function errorMessage(message){
+    toastr.error(message, "Error: ", {
+        "closeButton": true,
+        "timeOut": "0",
+        "extendedTimeOut": "0",
+        "preventDuplicates": true,
+        "newestOnTop": true,
+    });
 }
 
 function readFileData(file, callback){
@@ -70,26 +76,33 @@ function writeFileData(arr){
     var fileUrl =  null;
 
     if (navigator.msSaveBlob) {
-        fileUrl = navigator.msSaveBlob(blob, 'download.tsv');
+        fileUrl = navigator.msSaveBlob(blob, 'errors.tsv');
     } else {
         fileUrl = window.URL.createObjectURL(blob);
     }
     var tempLink = document.createElement('a');
     tempLink.href = fileUrl;
-    tempLink.setAttribute('download', 'download.tsv');
+    tempLink.setAttribute('download', 'errors.tsv');
     tempLink.click(); 
 }
 
-function standardView()
+function supervisorView()
 {
-    if($("meta[name=role]").attr("content") == "operator"){
+    if($("meta[name=role]").attr("content") == "supervisor"){
         var elements = document.getElementsByClassName('supervisor-view');
-
         for (var i = 0; i < elements.length; i ++) {
-            elements[i].style.display = 'none';
+            elements[i].style.display = '';
         }
     }
+}
 
+function supervisorViewFlex() {
+    if($("meta[name=role]").attr("content") == "supervisor"){
+        var elements = document.getElementsByClassName('supervisor-view-flex');
+        for (var i = 0; i < elements.length; i ++) {
+            elements[i].style.display = 'flex';
+        }
+    }
 }
 
 function roundUpTo2DecimalPlaces(value){
@@ -100,5 +113,5 @@ function validateForm(form){
     return form[0].reportValidity();
 }
 
-$(document).ready(standardView);
-//$(document).ready(emphasizeNavbarCurrentLink);
+$(document).ready(supervisorView);
+$(document).ready(supervisorViewFlex);
