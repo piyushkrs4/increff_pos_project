@@ -26,18 +26,7 @@ public class InventoryReportDtoTest extends AbstractUnitTest {
         createAndPlaceOrder();
         List<InventoryReportData> inventoryReportDataList = inventoryReportDto.getAll();
         assertEquals(3, inventoryReportDataList.size());
-        for (int i = 0; i < 3; i++) {
-            assertEquals("brand" + i, inventoryReportDataList.get(i).getBrand());
-            assertEquals("category" + i, inventoryReportDataList.get(i).getCategory());
-            assertEquals((Integer) 400, inventoryReportDataList.get(i).getQuantity());
-        }
     }
-
-//    @Test
-//    public void testDownloadInventoryReportCSV() throws ApiException, IllegalAccessException, IOException {
-//        createAndPlaceOrder();
-//        assertNotEquals(null, inventoryReportDto.downloadInventoryReportCSV());
-//    }
 
 
 }

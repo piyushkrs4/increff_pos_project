@@ -8,35 +8,35 @@
 
 <nav th:replace="snippets.html :: name_app_navbar"></nav>
 
-<div class="container">
+<div class="container" style="margin-top: 25px">
 
     <!-- Top row with form-->
     <div class="row">
 
-        <div class="col-2">
+        <div class="col-2" style = "display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <a th:href="@{/ui/brands}" title="Brand"> <i class="fas fa-b"></i> </a><br>
-            <a th:href="@{/ui/brands}" class="sub">Brands</a>
+            <a th:href="@{/ui/brands}" class="sub" style="margin-top: -17px;">Brands</a>
         </div>
 
-        <div class="col-2">
+        <div class="col-2" style = "display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <a th:href="@{/ui/products}" title="product"> <i class="fas fa-barcode"></i> </a><br>
-            <a th:href="@{/ui/products}" class="sub">Products</a>
+            <a th:href="@{/ui/products}" class="sub" style="margin-top: -17px;">Products</a>
         </div>
 
-        <div class="col-2">
+        <div class="col-2" style = "display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <a th:href="@{/ui/inventories}" title="inventory"> <i class="fas fa-warehouse"></i> </a><br>
-            <a th:href="@{/ui/inventories}" class="sub">Inventories</a>
+            <a th:href="@{/ui/inventories}" class="sub" style="margin-top: -17px;">Inventories</a>
         </div>
 
-        <div class="col-2">
+        <div class="col-2" style = "display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <a th:href="@{/ui/orders}" title="order"> <i class="fas fa-cart-shopping"></i> </a><br>
-            <a th:href="@{/ui/orders}" class="sub">Orders</a>
+            <a th:href="@{/ui/orders}" class="sub" style="margin-top: -17px;">Orders</a>
         </div>
 
-        <div class="col-2 supervisor-view" style="display: none;">
+        <div class="col-2 supervisor-view-flex" style = "display: none; flex-direction: column; justify-content: center; align-items: center;">
             <a th:href="@{/ui/users}" title="Admin"> <i class="fas fa-cog"></i> </a>
             <br>
-            <a th:href="@{/ui/users}" class="sub">Admin</a>
+            <a th:href="@{/ui/users}" class="sub" style="margin-top: -17px;">Admin</a>
         </div>
     </div>
 

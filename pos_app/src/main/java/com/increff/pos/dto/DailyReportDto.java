@@ -25,7 +25,7 @@ import static com.increff.pos.util.ValidatorUtil.validateDates;
 
 @Component
 public class DailyReportDto {
-    private static final String SCHEDULER_TIME = "0 55 10 * * *";
+    private static final String SCHEDULER_TIME = "0 35 10 * * *";
     private static final Logger logger = Logger.getLogger(DailyReportDto.class);
     @Autowired
     private DailyReportService dailyReportService;

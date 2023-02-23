@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3d605bd0-367e-4929-b4bb-38162824a63c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdf_app/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/pdf_app/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdf_app/src/main/java/com/increff/pdf/model/InvoiceDateTimeData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdf_app/src/main/java/com/increff/pdf/service/PdfService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pdf_app/src/main/java/com/increff/pdf/service/PdfService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf_app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pdf_app/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pdf_app/src/main/resources/PDFRequirements/invoice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pdf_app/src/main/resources/PDFRequirements/invoice.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdf_app/src/main/resources/PDFRequirements/style.xsl" beforeDir="false" afterPath="$PROJECT_DIR$/pdf_app/src/main/resources/PDFRequirements/style.xsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,18 +41,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "D:/WorkSpace/IncreffProjects/POS_Project_Final/increff_pos_project",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/WorkSpace/IncreffProjects/POS_Project_Final/increff_pos_project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\WorkSpace\IncreffProjects\POS_Project_Final\increff_pos_project\pdf_app" />
@@ -96,24 +93,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderDtoTest.testUpdateOrder" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="pos_app" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.increff.pos.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.increff.pos.dto" />
-      <option name="MAIN_CLASS_NAME" value="com.increff.pos.dto.OrderDtoTest" />
-      <option name="METHOD_NAME" value="testUpdateOrder" />
-      <option name="TEST_OBJECT" value="method" />
-      <dir value="$PROJECT_DIR$/pos_app/src/test/java" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserDtoTest.testUpdateUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PdfGeneratorDtoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pos_app" />
       <extension name="coverage">
         <pattern>
@@ -122,8 +102,23 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.increff.pos.dto" />
-      <option name="MAIN_CLASS_NAME" value="com.increff.pos.dto.UserDtoTest" />
-      <option name="METHOD_NAME" value="testUpdateUser" />
+      <option name="MAIN_CLASS_NAME" value="com.increff.pos.dto.PdfGeneratorDtoTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PdfGeneratorDtoTest.testShowPlacedOrder" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pos_app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.increff.pos.dto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.increff.pos.dto" />
+      <option name="MAIN_CLASS_NAME" value="com.increff.pos.dto.PdfGeneratorDtoTest" />
+      <option name="METHOD_NAME" value="testShowPlacedOrder" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -202,10 +197,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.java in pos_app" />
+        <item itemvalue="JUnit.PdfGeneratorDtoTest.testShowPlacedOrder" />
+        <item itemvalue="JUnit.PdfGeneratorDtoTest" />
         <item itemvalue="JUnit.OrderDtoTest.testInsufficientInventoryOnAddOrder" />
         <item itemvalue="JUnit.pos in pos_app" />
-        <item itemvalue="JUnit.UserDtoTest.testUpdateUser" />
-        <item itemvalue="JUnit.OrderDtoTest.testUpdateOrder" />
       </list>
     </recent_temporary>
   </component>
@@ -231,6 +226,9 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/increff_pos_project$PdfGeneratorDtoTest.ic" NAME="PdfGeneratorDtoTest Coverage Results" MODIFIED="1677090297126" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.increff.pos.dto.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/increff_pos_project$dto_in_pos_app.ic" NAME="dto in pos_app Coverage Results" MODIFIED="1675945346478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
@@ -251,6 +249,9 @@
     </SUITE>
     <SUITE FILE_PATH="coverage/increff_pos_project$BrandServiceTest.ic" NAME="BrandServiceTest Coverage Results" MODIFIED="1676188537219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/increff_pos_project$PdfGeneratorDtoTest_testShowPlacedOrder.ic" NAME="PdfGeneratorDtoTest.testShowPlacedOrder Coverage Results" MODIFIED="1677090625639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/increff_pos_project$ProductDtoTest_testAddwa.ic" NAME="ProductDtoTest.testAddwa Coverage Results" MODIFIED="1675752713348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dto.*</FILTER>
@@ -325,7 +326,7 @@
     <SUITE FILE_PATH="coverage/increff_pos_project$BrandDtoTest.ic" NAME="BrandDtoTest Coverage Results" MODIFIED="1676281167444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/increff_pos_project$java_in_pos_app.ic" NAME="java in pos_app Coverage Results" MODIFIED="1677066583401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/increff_pos_project$java_in_pos_app.ic" NAME="java in pos_app Coverage Results" MODIFIED="1677126867114" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.*</FILTER>
       <EXCLUDED_FILTER>com.increff.pos.dto.PdfGeneratorDto</EXCLUDED_FILTER>
     </SUITE>

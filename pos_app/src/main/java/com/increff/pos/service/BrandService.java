@@ -37,6 +37,7 @@ public class BrandService {
         exBrandPojo.setCategory(brandPojo.getCategory());
     }
 
+    //findBrandCategoryId returns id of particular brand, category pair
     public Integer findBrandCategoryId(String brand, String category) throws ApiException {
         BrandPojo brandPojo = brandDao.selectBrandCategory(brand, category);
         if (Objects.isNull(brandPojo)) {

@@ -83,9 +83,4 @@ public class DbConfig {
         return bean;
     }
 
-    @Bean(name = "restTemplate")
-    public RestTemplate createRestTemplate() {
-        return new RestTemplate();
-    }
-
 }
