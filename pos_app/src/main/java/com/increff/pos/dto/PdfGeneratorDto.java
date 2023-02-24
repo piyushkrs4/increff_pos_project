@@ -47,8 +47,9 @@ public class PdfGeneratorDto {
     public void generatePdf(Integer orderId) throws ApiException {
         ZonedDateTime currentZonedDateTime = ZonedDateTime.now();
         OrderPojo orderPojo = orderService.getOrderPojoByOrderId(orderId);
-        if(orderPojo.getOrderStatus())
+        if(orderPojo.getOrderStatus()){
             throw new ApiException("Order is already placed. Please reload the page!");
+        }
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT_DMY);
         String currentDate = currentZonedDateTime.format(dateTimeFormatter);
         dateTimeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT);
@@ -61,8 +62,9 @@ public class PdfGeneratorDto {
             throw new ApiException("Unable to create invoice as invoice-app is not running.");
         }
         File pdfDir = new File(pdfFilePath);
-        if(!pdfDir.mkdirs())
+        if(!pdfDir.mkdirs()){
             logger.info("PdfFiles folder created successfully");
+        }
         String pdfFileName = "invoice_" + invoiceData.getInvoiceNumber() + ".pdf";
         File file = new File(pdfDir, pdfFileName);
 
@@ -77,8 +79,9 @@ public class PdfGeneratorDto {
 
     public InvoiceData showPlacedOrder(Integer orderId) throws ApiException {
         OrderPojo orderPojo = orderService.getOrderPojoByOrderId(orderId);
-        if(!orderPojo.getOrderStatus())
+        if(!orderPojo.getOrderStatus()){
             throw new ApiException("Order has not been placed");
+        }
         ZonedDateTime dateTime = orderPojo.getUpdatedAt();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT_DMY);
         String formattedDate = dateTime.format(dateTimeFormatter);

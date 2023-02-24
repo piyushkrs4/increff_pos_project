@@ -34,12 +34,15 @@ public class ProductDto {
     public Integer add(ProductForm productForm) throws ApiException, IllegalAccessException {
         validate(productForm);
         normalize(productForm);
-        if(productForm.getBarcode().length() != 8)
+        if(productForm.getBarcode().length() != 8){
             throw new ApiException("Enter barcode of size 8!");
-        if(productForm.getBrand().equals("choose"))
+        }
+        if(productForm.getBrand().equals("choose")) {
             throw new ApiException("Please choose Brand!");
-        if(productForm.getCategory().equals("choose"))
+        }
+        if(productForm.getCategory().equals("choose")) {
             throw new ApiException("Please choose Category!");
+        }
         productForm.setMrp(roundUpTo2DecimalPlaces(productForm.getMrp()));
         ProductPojo productPojo = convertGeneric(productForm, ProductPojo.class);
         productPojo.setBrandId(brandService.findBrandCategoryId(productForm.getBrand(), productForm.getCategory()));

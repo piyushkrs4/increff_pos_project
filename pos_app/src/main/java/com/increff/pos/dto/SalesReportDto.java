@@ -59,8 +59,9 @@ public class SalesReportDto {
             List<OrderItemPojo> orderItemPojoList = orderService.getOrderItemsByOrderId(orderPojo.getId());
             for (OrderItemPojo orderItemPojo : orderItemPojoList) {
                 ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
-                if (!brandIdToSalesReportDataMap.containsKey(productPojo.getBrandId()))
+                if (!brandIdToSalesReportDataMap.containsKey(productPojo.getBrandId())) {
                     brandIdToSalesReportDataMap.put(productPojo.getBrandId(), new SalesReportData());
+                }
                 SalesReportData salesReportData = brandIdToSalesReportDataMap.get(productPojo.getBrandId());
                 salesReportData.setQuantity(salesReportData.getQuantity() + orderItemPojo.getQuantity());
                 salesReportData.setRevenue(salesReportData.getRevenue() + (orderItemPojo.getQuantity() * orderItemPojo.getSellingPrice()));

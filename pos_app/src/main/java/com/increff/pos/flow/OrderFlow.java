@@ -29,8 +29,9 @@ public class OrderFlow {
     private InventoryService inventoryService;
 
     public Integer addOrder(List<OrderItemPojo> orderItemPojoList, List<String> barcodeList) throws ApiException {
-        if (orderItemPojoList.isEmpty())
+        if (orderItemPojoList.isEmpty()) {
             throw new ApiException("Add at least one item to order!");
+        }
         Set<String> set = new HashSet<>(barcodeList);
         if (set.size() < barcodeList.size()) {
             throw new ApiException("There are some duplicate order items!");
@@ -41,8 +42,9 @@ public class OrderFlow {
             try {
                 orderItemPojo.setProductId(productService.getIdFromBarcode(barcodeList.get(i++)));
                 ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
-                if (productPojo.getMrp() < orderItemPojo.getSellingPrice())
+                if (productPojo.getMrp() < orderItemPojo.getSellingPrice()) {
                     throw new ApiException("Selling Price cannot be greater than MRP Rs." + productPojo.getMrp() + " for barcode: " + productPojo.getBarcode());
+                }
                 inventoryService.updateInventoryOnOrder(orderItemPojo.getQuantity(), productPojo);
             } catch (Exception exception) {
                 errors.append(addToErrorList(exception.getMessage()));
@@ -61,8 +63,9 @@ public class OrderFlow {
 
     public void updateOrder(Integer orderId, List<OrderItemPojo> orderItemPojoList, List<String> barcodeList) throws ApiException {
         StringBuilder errors = new StringBuilder();
-        if (orderItemPojoList.isEmpty())
+        if (orderItemPojoList.isEmpty()) {
             throw new ApiException("Add at least one item to order!");
+        }
         Set<String> set = new HashSet<>(barcodeList);
         if (set.size() < barcodeList.size()) {
             throw new ApiException("There are some duplicate order items!");
@@ -73,8 +76,9 @@ public class OrderFlow {
             try {
                 orderItemPojo.setProductId(productService.getIdFromBarcode(barcodeList.get(i++)));
                 ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
-                if (productPojo.getMrp() < orderItemPojo.getSellingPrice())
+                if (productPojo.getMrp() < orderItemPojo.getSellingPrice()) {
                     throw new ApiException("Selling Price cannot be greater than MRP Rs." + productPojo.getMrp() + " for barcode: " + productPojo.getBarcode());
+                }
                 inventoryService.updateInventoryOnOrder(orderItemPojo.getQuantity(), productPojo);
             } catch (Exception exception) {
                 errors.append(addToErrorList(exception.getMessage()));

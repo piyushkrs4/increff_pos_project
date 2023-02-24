@@ -21,7 +21,7 @@ public class ProductForm {
     @Size(max = 15)
     private String name;
     @NotNull
-    @Min(0)
+    @Positive
     @Max(1000000)
     private Double mrp;
 

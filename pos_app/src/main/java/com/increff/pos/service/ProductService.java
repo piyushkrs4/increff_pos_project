@@ -17,8 +17,9 @@ public class ProductService {
 
     public Integer add(ProductPojo productPojo) throws ApiException {
         ProductPojo exProductPojo = productDao.selectUsingBarcode(productPojo.getBarcode());
-        if (Objects.nonNull(exProductPojo))
+        if (Objects.nonNull(exProductPojo)) {
             throw new ApiException("Barcode already exist!");
+        }
         productDao.insert(productPojo);
         return productPojo.getId();
     }

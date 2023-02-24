@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3d605bd0-367e-4929-b4bb-38162824a63c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdf_app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pdf_app/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pdf_app/src/main/resources/PDFRequirements/invoice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pdf_app/src/main/resources/PDFRequirements/invoice.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -326,7 +325,7 @@
     <SUITE FILE_PATH="coverage/increff_pos_project$BrandDtoTest.ic" NAME="BrandDtoTest Coverage Results" MODIFIED="1676281167444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.dto.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/increff_pos_project$java_in_pos_app.ic" NAME="java in pos_app Coverage Results" MODIFIED="1677126867114" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/increff_pos_project$java_in_pos_app.ic" NAME="java in pos_app Coverage Results" MODIFIED="1677132624428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.increff.pos.*</FILTER>
       <EXCLUDED_FILTER>com.increff.pos.dto.PdfGeneratorDto</EXCLUDED_FILTER>
     </SUITE>

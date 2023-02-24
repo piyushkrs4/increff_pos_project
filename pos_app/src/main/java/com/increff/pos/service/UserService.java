@@ -32,8 +32,9 @@ public class UserService {
     public void updateUser(Integer userId, UserPojo userPojo) throws ApiException {
         UserPojo existing = getChecked(userId);
         UserPrincipal principal = SecurityUtil.getPrincipal();
-        if(Objects.isNull(principal))
+        if(Objects.isNull(principal)) {
             throw new ApiException("Unable to edit user");
+        }
         if (userPojo.getEmail().equals(supervisorEmail)) {
             if (principal.getEmail().equals(supervisorEmail)) {
                 existing.setPassword(userPojo.getPassword());
